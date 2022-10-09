@@ -51,7 +51,7 @@ public class GameController extends JFrame {
         Icon logo = new ImageIcon(getClass().getResource("gamelogo.png"));
         JLabel logoLabel = new JLabel(logo);
         add(logoLabel, BorderLayout.NORTH);
-        
+
         // Menu
         JMenuBar menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
