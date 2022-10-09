@@ -80,7 +80,7 @@ public class GameController extends JFrame {
         typePanel.setLayout(typeLayout);
         GridBagConstraints typeConstraints = new GridBagConstraints();
 
-        JPanel bottomPanel = new JPanel(new GridLayout(2, 5));
+        JPanel bottomPanel = new JPanel(new GridLayout(1, 5, 0, 0));
 
         // Mode
         JLabel modeLabel = new JLabel("Mode");
