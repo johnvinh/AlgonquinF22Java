@@ -25,7 +25,7 @@ public class GameController extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         layout = new BorderLayout();
         gridLayout = new GridLayout(dim, dim);
-        setSize(1000, 600);
+        setSize(1200, 600);
         setLayout(layout);
 
         // Menu
@@ -84,6 +84,11 @@ public class GameController extends JFrame {
         GridBagLayout movesLayout = new GridBagLayout();
         movesPanel.setLayout(movesLayout);
         GridBagConstraints movesConstraints = new GridBagConstraints();
+
+        JPanel pointsPanel = new JPanel();
+        GridBagLayout pointsLayout = new GridBagLayout();
+        pointsPanel.setLayout(pointsLayout);
+        GridBagConstraints pointsConstraints = new GridBagConstraints();
 
         JPanel bottomPanel = new JPanel(new GridLayout(1, 8, 0, 0));
 
@@ -171,12 +176,23 @@ public class GameController extends JFrame {
         movesConstraints.gridy = 1;
         movesPanel.add(movesCountLabel, movesConstraints);
 
+        // Points
+        JLabel pointsLabel = new JLabel("Points:");
+        JLabel pointsCountLabel = new JLabel("0");
+        pointsConstraints.gridx = 0;
+        pointsConstraints.gridy = 0;
+        pointsPanel.add(pointsLabel, pointsConstraints);
+        pointsConstraints.gridx = 0;
+        pointsConstraints.gridy = 1;
+        pointsPanel.add(pointsCountLabel, pointsConstraints);
+
         bottomPanel.add(modePanel);
         bottomPanel.add(timePanel);
         bottomPanel.add(dimSelectionPanel);
         bottomPanel.add(solutionPanel);
         bottomPanel.add(typePanel);
         bottomPanel.add(movesPanel);
+        bottomPanel.add(pointsPanel);
 
         // Reset button
         JButton resetButton = new JButton("Reset");
