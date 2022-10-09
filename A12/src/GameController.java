@@ -9,12 +9,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameController extends JFrame {
+    /**
+     * The layout for the whole application
+     */
     private final BorderLayout layout;
+    /**
+     * The layout for the gameplay part of the application
+     */
     private final GridLayout gridLayout;
+    /**
+     * A JButton array containing the buttons for the gameplay
+     */
     private final JButton[] gameButtons;
+    /**
+     * An integer specifying the size of the game board
+     */
     private int dim = 0;
+    /**
+     * A text area for displaying info about the game execution
+     */
     private final JTextArea sideInfo;
 
+    /**
+     * Run the game.
+     * @param args  arguments to be sent to the application
+     */
     public static void main(String[] args) {
         GameController main = new GameController();
     }
