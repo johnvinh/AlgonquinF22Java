@@ -55,11 +55,12 @@ public class GameController extends JFrame {
         add(sidePanel, BorderLayout.EAST);
 
         // Bottom info
-        JPanel modePanel = new JPanel();
+        JPanel modePanel = new JPanel(new GridBagLayout());
         JPanel timePanel = new JPanel();
         JPanel dimSelectionPanel = new JPanel();
         JPanel solutionPanel = new JPanel();
-        JPanel bottomPanel = new JPanel();
+        JPanel typePanel = new JPanel();
+        JPanel bottomPanel = new JPanel(new GridLayout(2, 5));
 
         // Mode
         JLabel modeLabel = new JLabel("Mode");
@@ -90,10 +91,19 @@ public class GameController extends JFrame {
         solutionPanel.add(showButton);
         solutionPanel.add(hideButton);
 
+        // Type
+        JLabel typeLabel = new JLabel("Type");
+        JComboBox typeChoice = new JComboBox(new String[]{"Number", "Text"});
+        typeChoice.setSelectedIndex(0);
+        typePanel.add(typeLabel);
+        typePanel.add(typeChoice);
+
+
         bottomPanel.add(modePanel);
         bottomPanel.add(timePanel);
         bottomPanel.add(dimSelectionPanel);
         bottomPanel.add(solutionPanel);
+        bottomPanel.add(typePanel);
 
         // Reset button
         JButton resetButton = new JButton("Reset");
