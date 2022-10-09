@@ -13,6 +13,7 @@ public class GameController extends JFrame {
     private final GridLayout gridLayout;
     private final JButton[] gameButtons;
     private int dim = 0;
+    private final JTextArea sideInfo;
 
     public static void main(String[] args) {
         GameController main = new GameController();
@@ -37,7 +38,7 @@ public class GameController extends JFrame {
 
         // Main game area
         JPanel mainGamePanel = new JPanel(gridLayout);
-        add(mainGamePanel, BorderLayout.WEST);
+        add(mainGamePanel, BorderLayout.CENTER);
 
         // Game buttons
         gameButtons = new JButton[dim * dim];
@@ -47,6 +48,13 @@ public class GameController extends JFrame {
             mainGamePanel.add(gameButtons[i]);
         }
 
+        // Side info
+        JPanel sidePanel = new JPanel();
+        sideInfo = new JTextArea(100, 10);
+        sidePanel.add(sideInfo);
+        add(sidePanel, BorderLayout.EAST);
+
+//        layout.layoutContainer(getContentPane());
         setVisible(true);
     }
 
