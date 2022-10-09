@@ -54,6 +54,52 @@ public class GameController extends JFrame {
         sidePanel.add(sideInfo);
         add(sidePanel, BorderLayout.EAST);
 
+        // Bottom info
+        JPanel modePanel = new JPanel();
+        JPanel timePanel = new JPanel();
+        JPanel dimSelectionPanel = new JPanel();
+        JPanel solutionPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+
+        // Mode
+        JLabel modeLabel = new JLabel("Mode");
+        JRadioButton designButton = new JRadioButton("Design");
+        JRadioButton playMode = new JRadioButton("Play");
+        modePanel.add(modeLabel);
+        modePanel.add(designButton);
+        modePanel.add(playMode);
+
+        // Time
+        JLabel timeElapsedLabel = new JLabel("Time Elapsed");
+        JLabel timeElapsed = new JLabel("0:00");
+        timePanel.add(timeElapsedLabel);
+        timePanel.add(timeElapsed);
+
+        // Dimension Selection
+        JLabel dimLabel = new JLabel("Dim");
+        JComboBox dimComoBox = new JComboBox(new String[]{"3", "4", "5"});
+        dimComoBox.setSelectedIndex(0);
+        dimSelectionPanel.add(dimLabel);
+        dimSelectionPanel.add(dimComoBox);
+
+        // Solution
+        JLabel solutionLabel = new JLabel("Solution");
+        JButton showButton = new JButton("Show");
+        JButton hideButton = new JButton("Hide");
+        solutionPanel.add(solutionLabel);
+        solutionPanel.add(showButton);
+        solutionPanel.add(hideButton);
+
+        bottomPanel.add(modePanel);
+        bottomPanel.add(timePanel);
+        bottomPanel.add(dimSelectionPanel);
+        bottomPanel.add(solutionPanel);
+
+        // Reset button
+        JButton resetButton = new JButton("Reset");
+        bottomPanel.add(resetButton);
+
+        add(bottomPanel, BorderLayout.SOUTH);
 //        layout.layoutContainer(getContentPane());
         setVisible(true);
     }
