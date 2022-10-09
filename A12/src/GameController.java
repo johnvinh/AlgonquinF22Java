@@ -55,48 +55,106 @@ public class GameController extends JFrame {
         add(sidePanel, BorderLayout.EAST);
 
         // Bottom info
-        JPanel modePanel = new JPanel(new GridBagLayout());
+        JPanel modePanel = new JPanel();
+        GridBagLayout modePanelLayout = new GridBagLayout();
+        modePanel.setLayout(modePanelLayout);
+        GridBagConstraints modePanelConstraints = new GridBagConstraints();
+
         JPanel timePanel = new JPanel();
+        GridBagLayout timePanelLayout = new GridBagLayout();
+        timePanel.setLayout(timePanelLayout);
+        GridBagConstraints timePanelConstraints = new GridBagConstraints();
+
         JPanel dimSelectionPanel = new JPanel();
+        GridBagLayout dimSelectionLayout = new GridBagLayout();
+        dimSelectionPanel.setLayout(dimSelectionLayout);
+        GridBagConstraints dimSelectionConstraints = new GridBagConstraints();
+
         JPanel solutionPanel = new JPanel();
+        GridBagLayout solutionLayout = new GridBagLayout();
+        solutionPanel.setLayout(solutionLayout);
+        GridBagConstraints solutionConstraints = new GridBagConstraints();
+
         JPanel typePanel = new JPanel();
+        GridBagLayout typeLayout = new GridBagLayout();
+        typePanel.setLayout(typeLayout);
+        GridBagConstraints typeConstraints = new GridBagConstraints();
+
         JPanel bottomPanel = new JPanel(new GridLayout(2, 5));
 
         // Mode
         JLabel modeLabel = new JLabel("Mode");
         JRadioButton designButton = new JRadioButton("Design");
         JRadioButton playMode = new JRadioButton("Play");
-        modePanel.add(modeLabel);
+        modePanelConstraints.fill = GridBagConstraints.VERTICAL;
+        modePanelConstraints.gridx = 0;
+        modePanelConstraints.gridy = 0;
+        modePanelConstraints.gridwidth = 2;
+        modePanelConstraints.gridheight = 1;
+        modePanel.add(modeLabel, modePanelConstraints);
         modePanel.add(designButton);
-        modePanel.add(playMode);
+        modePanelConstraints.gridx = 0;
+        modePanelConstraints.gridy = 1;
+        modePanelConstraints.gridwidth = 1;
+        modePanelConstraints.gridheight = 1;
+        modePanel.add(designButton, modePanelConstraints);
+        modePanelConstraints.gridx = 1;
+        modePanelConstraints.gridy = 1;
+        modePanelConstraints.gridwidth = 1;
+        modePanelConstraints.gridheight = 1;
+        modePanel.add(playMode, modePanelConstraints);
 
         // Time
         JLabel timeElapsedLabel = new JLabel("Time Elapsed");
         JLabel timeElapsed = new JLabel("0:00");
-        timePanel.add(timeElapsedLabel);
-        timePanel.add(timeElapsed);
+        timePanelConstraints.gridx = 0;
+        timePanelConstraints.gridy = 0;
+        timePanel.add(timeElapsedLabel, timePanelConstraints);
+        timePanelConstraints.gridx = 0;
+        timePanelConstraints.gridy = 1;
+        timePanel.add(timeElapsed, timePanelConstraints);
 
         // Dimension Selection
         JLabel dimLabel = new JLabel("Dim");
         JComboBox dimComoBox = new JComboBox(new String[]{"3", "4", "5"});
         dimComoBox.setSelectedIndex(0);
-        dimSelectionPanel.add(dimLabel);
-        dimSelectionPanel.add(dimComoBox);
+        dimSelectionConstraints.gridx = 0;
+        dimSelectionConstraints.gridy = 0;
+        dimSelectionPanel.add(dimLabel, dimSelectionConstraints);
+        dimSelectionConstraints.gridx = 0;
+        dimSelectionConstraints.gridy = 1;
+        dimSelectionPanel.add(dimComoBox, dimSelectionConstraints);
 
         // Solution
         JLabel solutionLabel = new JLabel("Solution");
         JButton showButton = new JButton("Show");
         JButton hideButton = new JButton("Hide");
-        solutionPanel.add(solutionLabel);
-        solutionPanel.add(showButton);
-        solutionPanel.add(hideButton);
+        solutionConstraints.gridx = 0;
+        solutionConstraints.gridy = 0;
+        solutionConstraints.gridwidth = 2;
+        solutionConstraints.gridheight = 1;
+        solutionPanel.add(solutionLabel, solutionConstraints);
+        solutionConstraints.gridx = 0;
+        solutionConstraints.gridy = 1;
+        solutionConstraints.gridwidth = 1;
+        solutionConstraints.gridheight = 1;
+        solutionPanel.add(showButton, solutionConstraints);
+        solutionConstraints.gridx = 1;
+        solutionConstraints.gridy = 1;
+        solutionConstraints.gridwidth = 1;
+        solutionConstraints.gridheight = 1;
+        solutionPanel.add(hideButton, solutionConstraints);
 
         // Type
         JLabel typeLabel = new JLabel("Type");
         JComboBox typeChoice = new JComboBox(new String[]{"Number", "Text"});
         typeChoice.setSelectedIndex(0);
-        typePanel.add(typeLabel);
-        typePanel.add(typeChoice);
+        typeConstraints.gridx = 0;
+        typeConstraints.gridy = 0;
+        typePanel.add(typeLabel, typeConstraints);
+        typeConstraints.gridx = 0;
+        typeConstraints.gridy = 1;
+        typePanel.add(typeChoice, typeConstraints);
 
 
         bottomPanel.add(modePanel);
