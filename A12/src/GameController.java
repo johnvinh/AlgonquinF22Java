@@ -96,6 +96,9 @@ public class GameController extends JFrame {
         JLabel modeLabel = new JLabel("Mode");
         JRadioButton designButton = new JRadioButton("Design");
         JRadioButton playMode = new JRadioButton("Play");
+        ButtonGroup modeGroup = new ButtonGroup();
+        modeGroup.add(designButton);
+        modeGroup.add(playMode);
         modePanelConstraints.fill = GridBagConstraints.VERTICAL;
         modePanelConstraints.gridx = 0;
         modePanelConstraints.gridy = 0;
