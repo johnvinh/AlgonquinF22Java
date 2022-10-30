@@ -30,15 +30,7 @@ public class GameController extends JFrame {
      */
     private final JTextArea sideInfo;
 
-    /**
-     * Run the game.
-     * @param args  arguments to be sent to the application
-     */
-    public static void main(String[] args) {
-        GameController main = new GameController();
-    }
-
-    GameController() {
+    GameController(GameModel model, GameView view) {
         super("NumPuz");
         dim = 3;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
