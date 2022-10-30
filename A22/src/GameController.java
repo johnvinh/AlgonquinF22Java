@@ -53,11 +53,16 @@ public class GameController extends JFrame {
 
         // there should be dim*dim - 1 buttons, 1 space is left empty
         int tileNumber = 1;
+        int tilesAdded = 0;
         for (int i = 0; i < model.getDim(); i++) {
             for (int j = 0; j < model.getDim(); j++) {
+                if (tilesAdded == (model.getDim()*model.getDim() - 1)) {
+                    break;
+                }
                 board[i][j] = new JButton(String.format("%s", tileNumber));
                 mainGamePanel.add(board[i][j]);
                 tileNumber++;
+                tilesAdded++;
             }
         }
         model.setBoard(board);
