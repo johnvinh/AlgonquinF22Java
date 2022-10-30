@@ -1,5 +1,7 @@
+import javax.swing.*;
+
 public class GameView {
-    private static class GameSplash {
+    private class GameSplash extends JWindow {
         
     }
 }
