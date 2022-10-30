@@ -10,7 +10,12 @@ public class GameView {
         public GameSplash() {
             JPanel content = new JPanel(new BorderLayout());
             content.setBackground(Color.BLACK);
-            setBounds(400, 200, 800, 600);
+            int width = 800;
+            int height = 600;
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (screen.width - width) / 2;
+            int y = (screen.height - height) / 2;
+            setBounds(x, y, width, height);
             JLabel label = new JLabel(new ImageIcon(getClass().getResource("game.png")));
             content.add(label, BorderLayout.CENTER);
             setContentPane(content);
