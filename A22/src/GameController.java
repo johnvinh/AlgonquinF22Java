@@ -224,8 +224,4 @@ public class GameController extends JFrame {
 //        layout.layoutContainer(getContentPane());
         setVisible(true);
     }
-
-    private class Controller {
-
-    }
 }
