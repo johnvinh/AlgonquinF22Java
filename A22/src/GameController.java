@@ -21,10 +21,14 @@ public class GameController extends JFrame {
      * A text area for displaying info about the game execution
      */
     private final JTextArea sideInfo;
+    private GameModel model;
+    private GameView view;
 
     GameController(GameModel model, GameView view) {
         super("NumPuz");
         model.setDim(3);
+        this.model = model;
+        this.view = view;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         layout = new BorderLayout();
         gridLayout = new GridLayout(model.getDim(), model.getDim());
@@ -56,7 +60,7 @@ public class GameController extends JFrame {
         int tilesAdded = 0;
         for (int i = 0; i < model.getDim(); i++) {
             for (int j = 0; j < model.getDim(); j++) {
-                if (tilesAdded == (model.getDim()*model.getDim() - 1)) {
+                if (tilesAdded == (model.getDim() * model.getDim() - 1)) {
                     break;
                 }
                 board[i][j] = new JButton(String.format("%s", tileNumber));
