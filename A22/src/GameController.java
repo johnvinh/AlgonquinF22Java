@@ -7,6 +7,8 @@ Professor: Paulo Sousa
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameController extends JFrame {
     /**
@@ -23,6 +25,7 @@ public class GameController extends JFrame {
     private final JTextArea sideInfo;
     private GameModel model;
     private GameView view;
+    private JPanel mainGamePanel;
 
     GameController(GameModel model, GameView view) {
         super("NumPuz");
@@ -49,7 +52,7 @@ public class GameController extends JFrame {
         setJMenuBar(menuBar);
 
         // Main game area
-        JPanel mainGamePanel = new JPanel(gridLayout);
+        mainGamePanel = new JPanel(gridLayout);
         add(mainGamePanel, BorderLayout.CENTER);
 
         // Game buttons
@@ -227,5 +230,40 @@ public class GameController extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 //        layout.layoutContainer(getContentPane());
         setVisible(true);
+        dimComoBox.addActionListener(new DimBoxListener());
+    }
+
+    private class DimBoxListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JComboBox source = (JComboBox) e.getSource();
+            int newDim = Integer.parseInt(String.valueOf(source.getSelectedItem()));
+            System.out.println(newDim);
+            model.setDim(newDim);
+
+            // Game buttons
+            JButton[][] board = new JButton[newDim][newDim];
+            gridLayout.setColumns(newDim);
+            gridLayout.setRows(newDim);
+            mainGamePanel.removeAll();
+
+            // there should be dim*dim - 1 buttons, 1 space is left empty
+            int tileNumber = 1;
+            int tilesAdded = 0;
+            for (int i = 0; i < newDim; i++) {
+                for (int j = 0; j < newDim; j++) {
+                    if (tilesAdded == (newDim * newDim - 1)) {
+                        break;
+                    }
+                    board[i][j] = new JButton(String.format("%s", tileNumber));
+                    mainGamePanel.add(board[i][j]);
+                    tileNumber++;
+                    tilesAdded++;
+                }
+            }
+            model.setBoard(board);
+            mainGamePanel.revalidate();
+            mainGamePanel.repaint();
+        }
     }
 }
