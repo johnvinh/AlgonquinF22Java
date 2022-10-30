@@ -18,24 +18,16 @@ public class GameController extends JFrame {
      */
     private final GridLayout gridLayout;
     /**
-     * A JButton array containing the buttons for the gameplay
-     */
-    private final JButton[] gameButtons;
-    /**
-     * An integer specifying the size of the game board
-     */
-    private int dim = 0;
-    /**
      * A text area for displaying info about the game execution
      */
     private final JTextArea sideInfo;
 
     GameController(GameModel model, GameView view) {
         super("NumPuz");
-        dim = 3;
+        model.setDim(3);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         layout = new BorderLayout();
-        gridLayout = new GridLayout(dim, dim);
+        gridLayout = new GridLayout(model.getDim(), model.getDim());
         setSize(1200, 600);
         setLayout(layout);
 
@@ -57,12 +49,18 @@ public class GameController extends JFrame {
         add(mainGamePanel, BorderLayout.CENTER);
 
         // Game buttons
-        gameButtons = new JButton[dim * dim];
+        JButton[][] board = new JButton[model.getDim()][model.getDim()];
+
         // there should be dim*dim - 1 buttons, 1 space is left empty
-        for (int i = 0; i < (dim * dim) - 1; i++) {
-            gameButtons[i] = new JButton(String.format("%s", (i + 1)));
-            mainGamePanel.add(gameButtons[i]);
+        int tileNumber = 1;
+        for (int i = 0; i < model.getDim(); i++) {
+            for (int j = 0; j < model.getDim(); j++) {
+                board[i][j] = new JButton(String.format("%s", tileNumber));
+                mainGamePanel.add(board[i][j]);
+                tileNumber++;
+            }
         }
+        model.setBoard(board);
 
         // Side info
         JPanel sidePanel = new JPanel();
