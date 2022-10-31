@@ -26,6 +26,8 @@ public class GameController extends JFrame {
     private GameModel model;
     private GameView view;
     private JPanel mainGamePanel;
+    private int moves = 0;
+    JLabel movesCountLabel;
 
     GameController(GameModel model, GameView view) {
         super("NumPuz");
@@ -55,24 +57,7 @@ public class GameController extends JFrame {
         mainGamePanel = new JPanel(gridLayout);
         add(mainGamePanel, BorderLayout.CENTER);
 
-        // Game buttons
-        JButton[][] board = new JButton[model.getDim()][model.getDim()];
-
-        // there should be dim*dim - 1 buttons, 1 space is left empty
-        int tileNumber = 1;
-        int tilesAdded = 0;
-        for (int i = 0; i < model.getDim(); i++) {
-            for (int j = 0; j < model.getDim(); j++) {
-                if (tilesAdded == (model.getDim() * model.getDim() - 1)) {
-                    break;
-                }
-                board[i][j] = new JButton(String.format("%s", tileNumber));
-                mainGamePanel.add(board[i][j]);
-                tileNumber++;
-                tilesAdded++;
-            }
-        }
-        model.setBoard(board);
+        setupBoard();
 
         // Side info
         JPanel sidePanel = new JPanel();
@@ -203,7 +188,7 @@ public class GameController extends JFrame {
 
         // Moves
         JLabel movesLabel = new JLabel("Moves:");
-        JLabel movesCountLabel = new JLabel("0");
+        movesCountLabel = new JLabel("0");
         movesConstraints.gridx = 0;
         movesConstraints.gridy = 0;
         movesPanel.add(movesLabel, movesConstraints);
@@ -239,35 +224,45 @@ public class GameController extends JFrame {
         dimComoBox.addActionListener(new DimBoxListener());
     }
 
+    private void setupBoard() {
+        // Game buttons
+        JButton[][] board = new JButton[model.getDim()][model.getDim()];
+        int newDim = model.getDim();
+        gridLayout.setColumns(newDim);
+        gridLayout.setRows(newDim);
+        mainGamePanel.removeAll();
+
+        // there should be dim*dim - 1 buttons, 1 space is left empty
+        int tileNumber = 1;
+        int tilesAdded = 0;
+        for (int i = 0; i < model.getDim(); i++) {
+            for (int j = 0; j < model.getDim(); j++) {
+                if (tilesAdded == (model.getDim() * model.getDim() - 1)) {
+                    break;
+                }
+                board[i][j] = new JButton(String.format("%s", tileNumber));
+                board[i][j].addActionListener(e -> {
+                    moves++;
+                    movesCountLabel.setText(String.valueOf(moves));
+                });
+                mainGamePanel.add(board[i][j]);
+                tileNumber++;
+                tilesAdded++;
+            }
+        }
+        model.setBoard(board);
+    }
+
     private class DimBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JComboBox source = (JComboBox) e.getSource();
             int newDim = Integer.parseInt(String.valueOf(source.getSelectedItem()));
-            System.out.println(newDim);
             model.setDim(newDim);
 
-            // Game buttons
-            JButton[][] board = new JButton[newDim][newDim];
-            gridLayout.setColumns(newDim);
-            gridLayout.setRows(newDim);
-            mainGamePanel.removeAll();
-
             // there should be dim*dim - 1 buttons, 1 space is left empty
-            int tileNumber = 1;
-            int tilesAdded = 0;
-            for (int i = 0; i < newDim; i++) {
-                for (int j = 0; j < newDim; j++) {
-                    if (tilesAdded == (newDim * newDim - 1)) {
-                        break;
-                    }
-                    board[i][j] = new JButton(String.format("%s", tileNumber));
-                    mainGamePanel.add(board[i][j]);
-                    tileNumber++;
-                    tilesAdded++;
-                }
-            }
-            model.setBoard(board);
+            setupBoard();
+
             mainGamePanel.revalidate();
             mainGamePanel.repaint();
         }
