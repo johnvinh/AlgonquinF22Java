@@ -145,13 +145,19 @@ public class GameController extends JFrame {
 
         // Time
         JLabel timeElapsedLabel = new JLabel("Time Elapsed");
-        JLabel timeElapsed = new JLabel("0:00");
+        JLabel timeElapsed = new JLabel("0");
         timePanelConstraints.gridx = 0;
         timePanelConstraints.gridy = 0;
         timePanel.add(timeElapsedLabel, timePanelConstraints);
         timePanelConstraints.gridx = 0;
         timePanelConstraints.gridy = 1;
         timePanel.add(timeElapsed, timePanelConstraints);
+        ActionListener timeIncrementer = e -> {
+            int time = Integer.parseInt(timeElapsed.getText());
+            time++;
+            timeElapsed.setText(String.valueOf(time));
+        };
+        new Timer(1000, timeIncrementer).start();
 
         // Dimension Selection
         JLabel dimLabel = new JLabel("Dim");
