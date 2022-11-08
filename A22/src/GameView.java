@@ -29,6 +29,7 @@ public class GameView extends JFrame {
     public TextField designText;
     public JButton setDesignButton;
     public JLabel pointsCountLabel;
+    public JComboBox dimComoBox;
     Random rand = new Random();
 
     public GameView() {
@@ -158,7 +159,7 @@ public class GameView extends JFrame {
 
         // Dimension Selection
         JLabel dimLabel = new JLabel("Dim");
-        JComboBox dimComoBox = new JComboBox(new String[]{"3", "4", "5"});
+        dimComoBox = new JComboBox(new String[]{"3", "4", "5"});
         dimComoBox.setSelectedIndex(0);
         dimSelectionConstraints.gridx = 0;
         dimSelectionConstraints.gridy = 0;
