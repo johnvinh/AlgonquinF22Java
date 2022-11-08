@@ -6,7 +6,6 @@ Professor: Paulo Sousa
  */
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +25,7 @@ public class GameController extends JFrame {
 
     public void initialize() {
         view.initializeView(model.getDim(), new DimBoxListener());
-        view.playMode.addActionListener(new EnableTimeIncrementer());
+        view.playMode.addActionListener(new PlayButtonClicked());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -44,7 +43,7 @@ public class GameController extends JFrame {
         }
     }
 
-    private class EnableTimeIncrementer implements ActionListener {
+    private class PlayButtonClicked implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
