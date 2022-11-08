@@ -25,6 +25,7 @@ public class GameView extends JFrame {
     public JButton hideButton;
     public JComboBox typeChoice;
     public TextField designText;
+    public JButton setDesignButton;
 
     public GameView() {
         super("NumPuz");
@@ -54,7 +55,7 @@ public class GameView extends JFrame {
         add(topPanel, BorderLayout.NORTH);
 
         // Set design text button
-        JButton setDesignButton = new JButton("Set");
+        setDesignButton = new JButton("Set");
         topPanel.add(setDesignButton, BorderLayout.EAST);
 
         // Menu
@@ -187,6 +188,7 @@ public class GameView extends JFrame {
         typeChoice = new JComboBox(new String[]{"Number", "Text"});
         typeChoice.setSelectedIndex(0);
         designText.setEnabled(false);
+        setDesignButton.setEnabled(false);
         typeConstraints.gridx = 0;
         typeConstraints.gridy = 0;
         typePanel.add(typeLabel, typeConstraints);

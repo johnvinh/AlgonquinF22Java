@@ -78,8 +78,10 @@ public class GameController extends JFrame {
 
             if (type.equals("Number")) {
                 view.designText.setEnabled(false);
+                view.setDesignButton.setEnabled(false);
             } else {
                 view.designText.setEnabled(true);
+                view.setDesignButton.setEnabled(true);
             }
         }
     }
