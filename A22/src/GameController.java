@@ -43,6 +43,7 @@ public class GameController extends JFrame {
                 board[i][j].addActionListener(new GameButtonListener());
             }
         }
+        view.setDesignButton.addActionListener(new SetDesignListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -202,6 +203,47 @@ public class GameController extends JFrame {
                     swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode(), emptySpaceRow, emptySpaceCol);
                 }
             }
+        }
+    }
+
+    private class SetDesignListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int dim = model.getDim();
+            int maxTiles = dim * dim - 1;
+            int numTiles = 0;
+            String inputSolution = view.designText.getText();
+            StringBuilder sb = new StringBuilder();
+
+            // Make sure we don't add more than the max tiles
+            for (int i = 0; i < inputSolution.length(); i++) {
+                if ((numTiles + 1) > maxTiles) {
+                    break;
+                }
+                sb.append(inputSolution.charAt(i));
+                sb.append(" ");
+                numTiles++;
+            }
+
+            // Pad with spaces in case the solution is too short for the dimension
+            if (numTiles < maxTiles) {
+                int difference = maxTiles - numTiles;
+                for (int i = 0; i < difference; i++) {
+                    sb.append("_");
+                    sb.append(" ");
+                }
+            }
+            // there should be dim*dim - 1 buttons, 1 space is left empty
+            model.setBoard(view.setupBoard(dim, sb.toString(), model));
+            JButton[][] board = model.getBoard();
+            for (int i = 0; i < model.getDim(); i++) {
+                for (int j = 0; j < model.getDim(); j++) {
+                    board[i][j].addActionListener(new GameButtonListener());
+                }
+            }
+
+            view.mainGamePanel.revalidate();
+            view.mainGamePanel.repaint();
         }
     }
 }
