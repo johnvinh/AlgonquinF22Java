@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class GameModel {
     private String[][] solution;
@@ -14,6 +15,8 @@ public class GameModel {
     private int timeElapsed = 0;
     private int score = 0;
     private String mode = "Design";
+    private Color correctColor;
+    private Color incorrectColor;
 
     public GameModel() {
         this.dim = 3;
@@ -74,5 +77,21 @@ public class GameModel {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setCorrectColor(Color correctColor) {
+        this.correctColor = correctColor;
+    }
+
+    public Color getCorrectColor() {
+        return correctColor;
+    }
+
+    public void setIncorrectColor(Color incorrectColor) {
+        this.incorrectColor = incorrectColor;
+    }
+
+    public Color getIncorrectColor() {
+        return incorrectColor;
     }
 }
