@@ -254,7 +254,7 @@ public class GameView extends JFrame {
             int x = (screen.width - width) / 2;
             int y = (screen.height - height) / 2;
             setBounds(x, y, width, height);
-            JLabel label = new JLabel(new ImageIcon(getClass().getResource("game.png")));
+            JLabel label = new JLabel(new ImageIcon(getClass().getResource("game-splash.png")));
             content.add(label, BorderLayout.CENTER);
             setContentPane(content);
             setVisible(true);
