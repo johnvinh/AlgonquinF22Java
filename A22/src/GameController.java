@@ -26,6 +26,7 @@ public class GameController extends JFrame {
     public void initialize() {
         view.initializeView(model.getDim(), new DimBoxListener());
         view.playMode.addActionListener(new PlayButtonClicked());
+        view.typeChoice.addActionListener(new TypeChoiceListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -65,6 +66,21 @@ public class GameController extends JFrame {
             int time = Integer.parseInt(view.timeElapsed.getText());
             time++;
             view.timeElapsed.setText(String.valueOf(time));
+        }
+    }
+
+    private class TypeChoiceListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JComboBox source = (JComboBox) e.getSource();
+            String type = String.valueOf(source.getSelectedItem());
+
+            if (type.equals("Number")) {
+                view.designText.setEnabled(false);
+            } else {
+                view.designText.setEnabled(true);
+            }
         }
     }
 }

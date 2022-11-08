@@ -24,6 +24,7 @@ public class GameView extends JFrame {
     public JButton showButton;
     public JButton hideButton;
     public JComboBox typeChoice;
+    public TextField designText;
 
     public GameView() {
         super("NumPuz");
@@ -47,7 +48,7 @@ public class GameView extends JFrame {
         topPanel.add(logoLabel, BorderLayout.NORTH);
 
         // Design text input
-        TextField designText = new TextField(15);
+        designText = new TextField(15);
         topPanel.add(designText, BorderLayout.CENTER);
 
         add(topPanel, BorderLayout.NORTH);
