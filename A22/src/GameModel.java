@@ -12,6 +12,8 @@ public class GameModel {
     private JButton[][] board;
     private int moves = 0;
     private int timeElapsed = 0;
+    private int score = 0;
+    private String mode = "Design";
 
     public GameModel() {
         this.dim = 3;
@@ -48,5 +50,13 @@ public class GameModel {
 
     public void setTimeElapsed(int timeElapsed) {
         this.timeElapsed = timeElapsed;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }
