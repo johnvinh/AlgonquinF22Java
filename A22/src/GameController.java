@@ -102,6 +102,10 @@ public class GameController extends JFrame {
         button1.setEnabled(false);
         button1.setText("");
         button1.setBackground(Color.BLACK);
+
+        int currentMoves = model.getMoves();
+        view.movesCountLabel.setText(String.valueOf(currentMoves + 1));
+        model.setMoves(currentMoves + 1);
     }
     private class GameButtonListener implements ActionListener {
 
