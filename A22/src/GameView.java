@@ -31,7 +31,7 @@ public class GameView extends JFrame {
         super("NumPuz");
     }
 
-    public void initializeView(int initialDim, ActionListener dimBoxListener) {
+    public JButton[][] initializeView(int initialDim, ActionListener dimBoxListener) {
         GameSplash splash = new GameSplash();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         layout = new BorderLayout();
@@ -70,7 +70,7 @@ public class GameView extends JFrame {
         mainGamePanel = new JPanel(gridLayout);
         add(mainGamePanel, BorderLayout.CENTER);
 
-        setupBoard(initialDim);
+        JButton[][] board = setupBoard(initialDim);
 
         // Side info
         JPanel sidePanel = new JPanel();
@@ -236,6 +236,8 @@ public class GameView extends JFrame {
 //        layout.layoutContainer(getContentPane());
         setVisible(true);
         dimComoBox.addActionListener(dimBoxListener);
+
+        return board;
     }
 
     public JButton[][] setupBoard(int dim) {
@@ -262,6 +264,7 @@ public class GameView extends JFrame {
                     moves++;
                     movesCountLabel.setText(String.valueOf(moves));
                 });*/
+                board[i][j].setBackground(Color.WHITE);
                 mainGamePanel.add(board[i][j]);
                 tileNumber++;
                 tilesAdded++;

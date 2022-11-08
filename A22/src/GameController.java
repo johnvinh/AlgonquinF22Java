@@ -6,6 +6,7 @@ Professor: Paulo Sousa
  */
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,9 +25,15 @@ public class GameController extends JFrame {
     }
 
     public void initialize() {
-        view.initializeView(model.getDim(), new DimBoxListener());
+        model.setBoard(view.initializeView(model.getDim(), new DimBoxListener()));
         view.playMode.addActionListener(new PlayButtonClicked());
         view.typeChoice.addActionListener(new TypeChoiceListener());
+        JButton[][] board = model.getBoard();
+        for (int i = 0; i < model.getDim(); i++) {
+            for (int j = 0; j < model.getDim(); j++) {
+                board[i][j].addActionListener(new GameButtonListener());
+            }
+        }
     }
 
     private class DimBoxListener implements ActionListener {
@@ -82,6 +89,58 @@ public class GameController extends JFrame {
             } else {
                 view.designText.setEnabled(true);
                 view.setDesignButton.setEnabled(true);
+            }
+        }
+    }
+
+    private class GameButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton[][] board = model.getBoard();
+            JButton source = (JButton) e.getSource();
+            String text = source.getText();
+            // Find this button's position in the board and the empty space
+            int row = 0;
+            int col = 0;
+            int emptySpaceRow = 0;
+            int emptySpaceCol = 0;
+            for (int i = 0; i < model.getDim(); i++) {
+                for (int j = 0; j < model.getDim(); j++) {
+                    if (board[i][j] == source) {
+                        row = i;
+                        col = j;
+                    }
+                    else if (!(board[i][j].isEnabled())) {
+                        emptySpaceRow = i;
+                        emptySpaceCol = j;
+                    }
+                }
+            }
+
+            // Same row, different column
+            if (row == emptySpaceRow) {
+                if (col == (emptySpaceCol - 1) || col == (emptySpaceCol + 1)) {
+                    String temp = board[row][col].getText();
+                    board[emptySpaceRow][emptySpaceCol].setEnabled(true);
+                    board[emptySpaceRow][emptySpaceCol].setText(temp);
+                    board[emptySpaceRow][emptySpaceCol].setBackground(Color.WHITE);
+
+                    board[row][col].setEnabled(false);
+                    board[row][col].setText("");
+                    board[row][col].setBackground(Color.BLACK);
+                }
+            } else if (col == emptySpaceCol) { // Same column, different row
+                if (row == (emptySpaceRow - 1) || row == (emptySpaceRow + 1)) {
+                    String temp = board[row][col].getText();
+                    board[emptySpaceRow][emptySpaceCol].setEnabled(true);
+                    board[emptySpaceRow][emptySpaceCol].setText(temp);
+                    board[emptySpaceRow][emptySpaceCol].setBackground(Color.WHITE);
+
+                    board[row][col].setEnabled(false);
+                    board[row][col].setText("");
+                    board[row][col].setBackground(Color.BLACK);
+                }
             }
         }
     }
