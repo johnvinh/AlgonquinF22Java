@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class GameController extends JFrame {
     private GameModel model;
     private GameView view;
+    private Timer timer;
 
     GameController(GameModel model, GameView view) {
         this.model = model;
@@ -73,7 +74,8 @@ public class GameController extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Start the timer
-            new Timer(1000, new TimeIncrementer()).start();
+            timer = new Timer(1000, new TimeIncrementer());
+            timer.start();
 
             // Disable some buttons
             view.showButton.setEnabled(false);
@@ -259,6 +261,7 @@ public class GameController extends JFrame {
             } else {
                 new GameView.GameFinish();
             }
+            timer.stop();
         }
     }
 }
