@@ -47,7 +47,14 @@ public class GameController extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            // Start the timer
             new Timer(1000, new TimeIncrementer()).start();
+
+            // Disable some buttons
+            view.showButton.setEnabled(false);
+            view.hideButton.setEnabled(false);
+            view.typeChoice.setEnabled(false);
+            view.playMode.setEnabled(false);
         }
     }
 

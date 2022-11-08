@@ -21,6 +21,9 @@ public class GameView extends JFrame {
     public JLabel timeElapsed;
     public JRadioButton designButton;
     public JRadioButton playMode;
+    public JButton showButton;
+    public JButton hideButton;
+    public JComboBox typeChoice;
 
     public GameView() {
         super("NumPuz");
@@ -146,8 +149,8 @@ public class GameView extends JFrame {
 
         // Solution
         JLabel solutionLabel = new JLabel("Solution");
-        JButton showButton = new JButton("Show");
-        JButton hideButton = new JButton("Hide");
+        showButton = new JButton("Show");
+        hideButton = new JButton("Hide");
         solutionConstraints.gridx = 0;
         solutionConstraints.gridy = 0;
         solutionConstraints.gridwidth = 2;
@@ -166,7 +169,7 @@ public class GameView extends JFrame {
 
         // Type
         JLabel typeLabel = new JLabel("Type");
-        JComboBox typeChoice = new JComboBox(new String[]{"Number", "Text"});
+        typeChoice = new JComboBox(new String[]{"Number", "Text"});
         typeChoice.setSelectedIndex(0);
         typeConstraints.gridx = 0;
         typeConstraints.gridy = 0;
