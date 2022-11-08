@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class GameModel {
-    private String configuration;
+    private String[][] solution;
     /**
      * An integer specifying the size of the game board
      */
@@ -58,5 +58,13 @@ public class GameModel {
 
     public void setMode(String mode) {
         this.mode = mode;
+    }
+
+    public String[][] getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String[][] solution) {
+        this.solution = solution;
     }
 }
