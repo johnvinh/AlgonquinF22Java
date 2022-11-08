@@ -93,6 +93,16 @@ public class GameController extends JFrame {
         }
     }
 
+    private void swapButtons(JButton button1, JButton button2) {
+        String temp = button1.getText();
+        button2.setEnabled(true);
+        button2.setText(temp);
+        button2.setBackground(Color.WHITE);
+
+        button1.setEnabled(false);
+        button1.setText("");
+        button1.setBackground(Color.BLACK);
+    }
     private class GameButtonListener implements ActionListener {
 
         @Override
@@ -121,25 +131,11 @@ public class GameController extends JFrame {
             // Same row, different column
             if (row == emptySpaceRow) {
                 if (col == (emptySpaceCol - 1) || col == (emptySpaceCol + 1)) {
-                    String temp = board[row][col].getText();
-                    board[emptySpaceRow][emptySpaceCol].setEnabled(true);
-                    board[emptySpaceRow][emptySpaceCol].setText(temp);
-                    board[emptySpaceRow][emptySpaceCol].setBackground(Color.WHITE);
-
-                    board[row][col].setEnabled(false);
-                    board[row][col].setText("");
-                    board[row][col].setBackground(Color.BLACK);
+                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol]);
                 }
             } else if (col == emptySpaceCol) { // Same column, different row
                 if (row == (emptySpaceRow - 1) || row == (emptySpaceRow + 1)) {
-                    String temp = board[row][col].getText();
-                    board[emptySpaceRow][emptySpaceCol].setEnabled(true);
-                    board[emptySpaceRow][emptySpaceCol].setText(temp);
-                    board[emptySpaceRow][emptySpaceCol].setBackground(Color.WHITE);
-
-                    board[row][col].setEnabled(false);
-                    board[row][col].setText("");
-                    board[row][col].setBackground(Color.BLACK);
+                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol]);
                 }
             }
         }
