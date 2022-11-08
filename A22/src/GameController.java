@@ -46,6 +46,8 @@ public class GameController extends JFrame {
         }
         view.setDesignButton.addActionListener(new SetDesignListener());
         view.finishButton.addActionListener(new FinishButtonListener());
+        view.newMenuItem.addActionListener(new NewMenuItemListener());
+        view.resetButton.addActionListener(new ResetButtonListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -262,6 +264,60 @@ public class GameController extends JFrame {
                 new GameView.GameFinish();
             }
             timer.stop();
+        }
+    }
+
+    private void reset() {
+        timer.stop();
+
+        // Model
+        model.setScore(0);
+        model.setMode("Design");
+        model.setMoves(0);
+        model.setTimeElapsed(0);
+
+        // View
+        view.pointsCountLabel.setText("0");
+        view.designButton.setSelected(true);
+        view.movesCountLabel.setText("0");
+        view.timeElapsed.setText("0");
+        view.playMode.setEnabled(true);
+        view.dimComoBox.setEnabled(true);
+        view.showButton.setEnabled(true);
+        view.hideButton.setEnabled(true);
+        view.typeChoice.setEnabled(true);
+        view.typeChoice.setSelectedIndex(0);
+        view.setDesignButton.setEnabled(false);
+        view.designText.setEnabled(false);
+    }
+
+    private class NewMenuItemListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JComboBox source = view.dimComoBox;
+            int newDim = Integer.parseInt(String.valueOf(source.getSelectedItem()));
+            model.setDim(newDim);
+
+            // there should be dim*dim - 1 buttons, 1 space is left empty
+            model.setBoard(view.setupBoard(model.getDim(), dimToSolution(model.getDim()), model));
+            JButton[][] board = model.getBoard();
+            for (int i = 0; i < model.getDim(); i++) {
+                for (int j = 0; j < model.getDim(); j++) {
+                    board[i][j].addActionListener(new GameButtonListener());
+                }
+            }
+
+            view.mainGamePanel.revalidate();
+            view.mainGamePanel.repaint();
+
+            reset();
+        }
+    }
+
+    private class ResetButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            reset();
         }
     }
 }

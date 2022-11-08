@@ -31,6 +31,8 @@ public class GameView extends JFrame {
     public JLabel pointsCountLabel;
     public JComboBox dimComoBox;
     public JButton finishButton;
+    public JMenuItem newMenuItem;
+    public JButton resetButton;
     Random rand = new Random();
 
     public GameView() {
@@ -67,7 +69,7 @@ public class GameView extends JFrame {
         // Menu
         JMenuBar menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
-        JMenuItem newMenuItem = new JMenuItem("New");
+        newMenuItem = new JMenuItem("New");
         JMenuItem solutionMenuItem = new JMenuItem("Solution");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         gameMenu.add(newMenuItem);
@@ -247,7 +249,7 @@ public class GameView extends JFrame {
         bottomPanel.add(finishButton);
 
         // Reset button
-        JButton resetButton = new JButton("Reset");
+        resetButton = new JButton("Reset");
         bottomPanel.add(resetButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
