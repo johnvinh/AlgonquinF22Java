@@ -279,6 +279,7 @@ public class GameView extends JFrame {
                 tilesToAdd.remove(randomTile);
                 board[i][j] = new JButton(randomTile);
                 board[i][j].setBackground(Color.WHITE);
+                board[i][j].setFont(new Font ("Verdana", Font.PLAIN, 70));
                 mainGamePanel.add(board[i][j]);
                 tileNumber++;
                 tilesAdded++;
