@@ -98,6 +98,7 @@ public class GameView extends JFrame {
         JLabel modeLabel = new JLabel("Mode");
         JRadioButton designButton = new JRadioButton("Design");
         JRadioButton playMode = new JRadioButton("Play");
+        designButton.setSelected(true);
         ButtonGroup modeGroup = new ButtonGroup();
         modeGroup.add(designButton);
         modeGroup.add(playMode);
