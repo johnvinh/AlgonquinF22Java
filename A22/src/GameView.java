@@ -37,10 +37,20 @@ public class GameView extends JFrame {
         setSize(1200, 600);
         setLayout(layout);
 
+        // Border layout for main image and design text
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+
         // Main image
         Icon logo = new ImageIcon(getClass().getResource("gamelogo.png"));
         JLabel logoLabel = new JLabel(logo);
-        add(logoLabel, BorderLayout.NORTH);
+        topPanel.add(logoLabel, BorderLayout.NORTH);
+
+        // Design text input
+        TextField designText = new TextField(15);
+        topPanel.add(designText, BorderLayout.CENTER);
+
+        add(topPanel, BorderLayout.NORTH);
 
         // Menu
         JMenuBar menuBar = new JMenuBar();
