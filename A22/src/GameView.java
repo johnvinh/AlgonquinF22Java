@@ -28,6 +28,7 @@ public class GameView extends JFrame {
     public JComboBox typeChoice;
     public TextField designText;
     public JButton setDesignButton;
+    public JLabel pointsCountLabel;
     Random rand = new Random();
 
     public GameView() {
@@ -211,7 +212,7 @@ public class GameView extends JFrame {
 
         // Points
         JLabel pointsLabel = new JLabel("Points:");
-        JLabel pointsCountLabel = new JLabel("0");
+        pointsCountLabel = new JLabel("0");
         pointsConstraints.gridx = 0;
         pointsConstraints.gridy = 0;
         pointsPanel.add(pointsLabel, pointsConstraints);

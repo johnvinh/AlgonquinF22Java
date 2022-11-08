@@ -82,18 +82,22 @@ public class GameController extends JFrame {
             // Check if each tile is correct
             JButton[][] board = model.getBoard();
             String[][] solution = model.getSolution();
+            int initialScore = 0;
             for (int i = 0; i < model.getDim(); i++) {
                 for (int j = 0; j < model.getDim(); j++) {
                     if (!(board[i][j].isEnabled())) {
                         continue;
                     }
                     if (board[i][j].getText().equals(solution[i][j])) {
+                        initialScore++;
                         board[i][j].setBackground(Color.GREEN);
                     } else {
                         board[i][j].setBackground(Color.RED);
                     }
                 }
             }
+            model.setScore(initialScore);
+            view.pointsCountLabel.setText(String.valueOf(initialScore));
             model.setMode("Play");
         }
     }
@@ -147,6 +151,19 @@ public class GameController extends JFrame {
             } else {
                 button2.setBackground(Color.RED);
             }
+
+            // Get new score
+            JButton[][] board = model.getBoard();
+            int score = 0;
+            for (int i = 0; i < model.getDim(); i++) {
+                for (int j = 0; j < model.getDim(); j++) {
+                    if (board[i][j].getText().equals(solution[i][j])) {
+                        score++;
+                    }
+                }
+            }
+            view.pointsCountLabel.setText(String.valueOf(score));
+            model.setScore(score);
         }
     }
     private class GameButtonListener implements ActionListener {
