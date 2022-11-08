@@ -270,11 +270,6 @@ public class GameView extends JFrame {
                 String randomTile = tilesToAdd.get(rand.nextInt(tilesToAdd.size()));
                 tilesToAdd.remove(randomTile);
                 board[i][j] = new JButton(randomTile);
-//                board[i][j] = new JButton(String.format("%s", tileNumber));
-                /*board[i][j].addActionListener(e -> {
-                    moves++;
-                    movesCountLabel.setText(String.valueOf(moves));
-                });*/
                 board[i][j].setBackground(Color.WHITE);
                 mainGamePanel.add(board[i][j]);
                 tileNumber++;
