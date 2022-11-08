@@ -34,7 +34,7 @@ public class GameView extends JFrame {
         super("NumPuz");
     }
 
-    public JButton[][] initializeView(int initialDim, ActionListener dimBoxListener) {
+    public JButton[][] initializeView(int initialDim, ActionListener dimBoxListener, String solution, GameModel model) {
         GameSplash splash = new GameSplash();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         layout = new BorderLayout();
@@ -73,7 +73,7 @@ public class GameView extends JFrame {
         mainGamePanel = new JPanel(gridLayout);
         add(mainGamePanel, BorderLayout.CENTER);
 
-        JButton[][] board = setupBoard(initialDim);
+        JButton[][] board = setupBoard(initialDim, solution, model);
 
         // Side info
         JPanel sidePanel = new JPanel();
@@ -243,19 +243,24 @@ public class GameView extends JFrame {
         return board;
     }
 
-    public JButton[][] setupBoard(int dim) {
+    public JButton[][] setupBoard(int dim, String solution, GameModel model) {
         // Game buttons
         JButton[][] board = new JButton[dim][dim];
         gridLayout.setColumns(dim);
         gridLayout.setRows(dim);
         mainGamePanel.removeAll();
 
+        String[] solutionSplit = solution.split(" ");
+        System.out.println(solution);
+
         ArrayList<String> tilesToAdd = new ArrayList<>();
-        for (int i = 1; i < dim*dim; i++) {
-            tilesToAdd.add(String.valueOf(i));
+        String[][] outSolution = new String[dim][dim];
+        for (int i = 0; i < solutionSplit.length; i++) {
+            tilesToAdd.add(solutionSplit[i]);
         }
 
         // there should be dim*dim - 1 buttons, 1 space is left empty
+        int solutionIndex = 0;
         int tileNumber = 1;
         int tilesAdded = 0;
         for (int i = 0; i < dim; i++) {
@@ -276,6 +281,7 @@ public class GameView extends JFrame {
                 tilesAdded++;
             }
         }
+        model.setSolution(outSolution);
         return board;
     }
 

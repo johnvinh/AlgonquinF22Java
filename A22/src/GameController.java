@@ -24,8 +24,17 @@ public class GameController extends JFrame {
         return model.getDim();
     }
 
+    public static String dimToSolution(int dim) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < dim*dim; i++) {
+            sb.append(i);
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
     public void initialize() {
-        model.setBoard(view.initializeView(model.getDim(), new DimBoxListener()));
+        model.setBoard(view.initializeView(model.getDim(), new DimBoxListener(), dimToSolution(model.getDim()), model));
         view.playMode.addActionListener(new PlayButtonClicked());
         view.typeChoice.addActionListener(new TypeChoiceListener());
         JButton[][] board = model.getBoard();
@@ -44,7 +53,13 @@ public class GameController extends JFrame {
             model.setDim(newDim);
 
             // there should be dim*dim - 1 buttons, 1 space is left empty
-            model.setBoard(view.setupBoard(model.getDim()));
+            model.setBoard(view.setupBoard(model.getDim(), dimToSolution(model.getDim()), model));
+            JButton[][] board = model.getBoard();
+            for (int i = 0; i < model.getDim(); i++) {
+                for (int j = 0; j < model.getDim(); j++) {
+                    board[i][j].addActionListener(new GameButtonListener());
+                }
+            }
 
             view.mainGamePanel.revalidate();
             view.mainGamePanel.repaint();
@@ -96,7 +111,7 @@ public class GameController extends JFrame {
         }
     }
 
-    private void swapButtons(JButton button1, JButton button2, String mode) {
+    private void swapButtons(JButton button1, JButton button2, String mode, int newRow, int newCol) {
         String temp = button1.getText();
         button2.setEnabled(true);
         button2.setText(temp);
@@ -110,6 +125,13 @@ public class GameController extends JFrame {
             int currentMoves = model.getMoves();
             view.movesCountLabel.setText(String.valueOf(currentMoves + 1));
             model.setMoves(currentMoves + 1);
+            String[][] solution = model.getSolution();
+            // Button 2 is the new position of the button
+            if (button2.getText().equals(solution[newRow][newCol])) {
+                button2.setBackground(Color.GREEN);
+            } else {
+                button2.setBackground(Color.RED);
+            }
         }
     }
     private class GameButtonListener implements ActionListener {
@@ -140,11 +162,11 @@ public class GameController extends JFrame {
             // Same row, different column
             if (row == emptySpaceRow) {
                 if (col == (emptySpaceCol - 1) || col == (emptySpaceCol + 1)) {
-                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode());
+                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode(), emptySpaceRow, emptySpaceCol);
                 }
             } else if (col == emptySpaceCol) { // Same column, different row
                 if (row == (emptySpaceRow - 1) || row == (emptySpaceRow + 1)) {
-                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode());
+                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode(), emptySpaceRow, emptySpaceCol);
                 }
             }
         }
