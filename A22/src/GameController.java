@@ -44,6 +44,7 @@ public class GameController extends JFrame {
             }
         }
         view.setDesignButton.addActionListener(new SetDesignListener());
+        view.finishButton.addActionListener(new FinishButtonListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -244,6 +245,20 @@ public class GameController extends JFrame {
 
             view.mainGamePanel.revalidate();
             view.mainGamePanel.repaint();
+        }
+    }
+
+    private class FinishButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int currentPoints = model.getScore();
+            int maxPoints = model.getDim() * model.getDim() - 1;
+            if (currentPoints == maxPoints) {
+                new GameView.GameWinner();
+            } else {
+                new GameView.GameFinish();
+            }
         }
     }
 }

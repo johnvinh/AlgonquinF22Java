@@ -30,6 +30,7 @@ public class GameView extends JFrame {
     public JButton setDesignButton;
     public JLabel pointsCountLabel;
     public JComboBox dimComoBox;
+    public JButton finishButton;
     Random rand = new Random();
 
     public GameView() {
@@ -242,7 +243,7 @@ public class GameView extends JFrame {
         bottomPanel.add(pointsPanel);
 
         // Finish button
-        JButton finishButton = new JButton("Finish");
+        finishButton = new JButton("Finish");
         bottomPanel.add(finishButton);
 
         // Reset button
@@ -322,6 +323,48 @@ public class GameView extends JFrame {
                 e.printStackTrace();
             }
             dispose();
+        }
+    }
+
+    public static class GameWinner extends JWindow {
+        public GameWinner() {
+            JPanel content = new JPanel(new BorderLayout());
+            content.setBackground(Color.BLACK);
+            int width = 800;
+            int height = 600;
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (screen.width - width) / 2;
+            int y = (screen.height - height) / 2;
+            setBounds(x, y, width, height);
+            JLabel label = new JLabel(new ImageIcon(getClass().getResource("gamewinner.png")));
+            content.add(label, BorderLayout.CENTER);
+
+            JButton okButton = new JButton("OK");
+            okButton.addActionListener(e -> dispose());
+            content.add(okButton, BorderLayout.SOUTH);
+            setContentPane(content);
+            setVisible(true);
+        }
+    }
+
+    public static class GameFinish extends JWindow {
+        public GameFinish() {
+            JPanel content = new JPanel(new BorderLayout());
+            content.setBackground(Color.BLACK);
+            int width = 800;
+            int height = 600;
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (screen.width - width) / 2;
+            int y = (screen.height - height) / 2;
+            setBounds(x, y, width, height);
+            JLabel label = new JLabel(new ImageIcon(getClass().getResource("gameend.png")));
+            content.add(label, BorderLayout.CENTER);
+
+            JButton okButton = new JButton("OK");
+            okButton.addActionListener(e -> dispose());
+            content.add(okButton, BorderLayout.SOUTH);
+            setContentPane(content);
+            setVisible(true);
         }
     }
 }
