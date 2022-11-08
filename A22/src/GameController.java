@@ -79,6 +79,21 @@ public class GameController extends JFrame {
             view.typeChoice.setEnabled(false);
             view.playMode.setEnabled(false);
 
+            // Check if each tile is correct
+            JButton[][] board = model.getBoard();
+            String[][] solution = model.getSolution();
+            for (int i = 0; i < model.getDim(); i++) {
+                for (int j = 0; j < model.getDim(); j++) {
+                    if (!(board[i][j].isEnabled())) {
+                        continue;
+                    }
+                    if (board[i][j].getText().equals(solution[i][j])) {
+                        board[i][j].setBackground(Color.GREEN);
+                    } else {
+                        board[i][j].setBackground(Color.RED);
+                    }
+                }
+            }
             model.setMode("Play");
         }
     }
