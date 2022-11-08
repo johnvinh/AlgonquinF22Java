@@ -21,6 +21,8 @@ public class GameModel {
     public GameModel() {
         this.dim = 3;
         this.board = new JButton[dim][dim];
+        this.correctColor = Color.GREEN;
+        this.incorrectColor = Color.RED;
     }
 
     public void setDim(int dim) {
