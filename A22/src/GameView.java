@@ -53,6 +53,10 @@ public class GameView extends JFrame {
 
         add(topPanel, BorderLayout.NORTH);
 
+        // Set design text button
+        JButton setDesignButton = new JButton("Set");
+        topPanel.add(setDesignButton, BorderLayout.EAST);
+
         // Menu
         JMenuBar menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
