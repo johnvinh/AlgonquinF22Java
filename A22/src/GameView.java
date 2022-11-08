@@ -272,6 +272,7 @@ public class GameView extends JFrame {
                     mainGamePanel.add(board[i][j]);
                     break;
                 }
+                outSolution[i][j] = solutionSplit[solutionIndex];
                 String randomTile = tilesToAdd.get(rand.nextInt(tilesToAdd.size()));
                 tilesToAdd.remove(randomTile);
                 board[i][j] = new JButton(randomTile);
@@ -279,6 +280,7 @@ public class GameView extends JFrame {
                 mainGamePanel.add(board[i][j]);
                 tileNumber++;
                 tilesAdded++;
+                solutionIndex++;
             }
         }
         model.setSolution(outSolution);
