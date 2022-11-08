@@ -63,6 +63,8 @@ public class GameController extends JFrame {
             view.hideButton.setEnabled(false);
             view.typeChoice.setEnabled(false);
             view.playMode.setEnabled(false);
+
+            model.setMode("Play");
         }
     }
 
@@ -94,7 +96,7 @@ public class GameController extends JFrame {
         }
     }
 
-    private void swapButtons(JButton button1, JButton button2) {
+    private void swapButtons(JButton button1, JButton button2, String mode) {
         String temp = button1.getText();
         button2.setEnabled(true);
         button2.setText(temp);
@@ -104,9 +106,11 @@ public class GameController extends JFrame {
         button1.setText("");
         button1.setBackground(Color.BLACK);
 
-        int currentMoves = model.getMoves();
-        view.movesCountLabel.setText(String.valueOf(currentMoves + 1));
-        model.setMoves(currentMoves + 1);
+        if (mode.equals("Play")) {
+            int currentMoves = model.getMoves();
+            view.movesCountLabel.setText(String.valueOf(currentMoves + 1));
+            model.setMoves(currentMoves + 1);
+        }
     }
     private class GameButtonListener implements ActionListener {
 
@@ -136,11 +140,11 @@ public class GameController extends JFrame {
             // Same row, different column
             if (row == emptySpaceRow) {
                 if (col == (emptySpaceCol - 1) || col == (emptySpaceCol + 1)) {
-                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol]);
+                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode());
                 }
             } else if (col == emptySpaceCol) { // Same column, different row
                 if (row == (emptySpaceRow - 1) || row == (emptySpaceRow + 1)) {
-                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol]);
+                    swapButtons(board[row][col], board[emptySpaceRow][emptySpaceCol], model.getMode());
                 }
             }
         }
