@@ -28,7 +28,7 @@ public class GameController extends JFrame {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < dim*dim; i++) {
             sb.append(i);
-            sb.append(" ");
+            sb.append("_");
         }
         return sb.toString();
     }
@@ -221,7 +221,7 @@ public class GameController extends JFrame {
                     break;
                 }
                 sb.append(inputSolution.charAt(i));
-                sb.append(" ");
+                sb.append("_");
                 numTiles++;
             }
 
@@ -229,8 +229,8 @@ public class GameController extends JFrame {
             if (numTiles < maxTiles) {
                 int difference = maxTiles - numTiles;
                 for (int i = 0; i < difference; i++) {
-                    sb.append("_");
                     sb.append(" ");
+                    sb.append("_");
                 }
             }
             // there should be dim*dim - 1 buttons, 1 space is left empty

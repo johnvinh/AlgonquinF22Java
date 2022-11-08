@@ -252,7 +252,7 @@ public class GameView extends JFrame {
         gridLayout.setRows(dim);
         mainGamePanel.removeAll();
 
-        String[] solutionSplit = solution.split(" ");
+        String[] solutionSplit = solution.split("_");
         System.out.println(solution);
 
         ArrayList<String> tilesToAdd = new ArrayList<>();
