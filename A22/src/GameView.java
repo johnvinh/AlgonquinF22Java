@@ -251,6 +251,10 @@ public class GameView extends JFrame {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (tilesAdded == (dim * dim - 1)) {
+                    board[i][j] = new JButton();
+                    board[i][j].setEnabled(false);
+                    board[i][j].setBackground(Color.BLACK);
+                    mainGamePanel.add(board[i][j]);
                     break;
                 }
                 board[i][j] = new JButton(String.format("%s", tileNumber));
