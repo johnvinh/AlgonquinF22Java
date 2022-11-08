@@ -18,6 +18,9 @@ public class GameView extends JFrame {
     public JTextArea sideInfo;
     public JPanel mainGamePanel;
     public JLabel movesCountLabel;
+    public JLabel timeElapsed;
+    public JRadioButton designButton;
+    public JRadioButton playMode;
 
     public GameView() {
         super("NumPuz");
@@ -96,8 +99,8 @@ public class GameView extends JFrame {
 
         // Mode
         JLabel modeLabel = new JLabel("Mode");
-        JRadioButton designButton = new JRadioButton("Design");
-        JRadioButton playMode = new JRadioButton("Play");
+        designButton = new JRadioButton("Design");
+        playMode = new JRadioButton("Play");
         designButton.setSelected(true);
         ButtonGroup modeGroup = new ButtonGroup();
         modeGroup.add(designButton);
@@ -122,19 +125,13 @@ public class GameView extends JFrame {
 
         // Time
         JLabel timeElapsedLabel = new JLabel("Time Elapsed");
-        JLabel timeElapsed = new JLabel("0");
+        timeElapsed = new JLabel("0");
         timePanelConstraints.gridx = 0;
         timePanelConstraints.gridy = 0;
         timePanel.add(timeElapsedLabel, timePanelConstraints);
         timePanelConstraints.gridx = 0;
         timePanelConstraints.gridy = 1;
         timePanel.add(timeElapsed, timePanelConstraints);
-        ActionListener timeIncrementer = e -> {
-            int time = Integer.parseInt(timeElapsed.getText());
-            time++;
-            timeElapsed.setText(String.valueOf(time));
-        };
-        new Timer(1000, timeIncrementer).start();
 
         // Dimension Selection
         JLabel dimLabel = new JLabel("Dim");

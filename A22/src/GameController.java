@@ -26,6 +26,7 @@ public class GameController extends JFrame {
 
     public void initialize() {
         view.initializeView(model.getDim(), new DimBoxListener());
+        view.playMode.addActionListener(new EnableTimeIncrementer());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -40,6 +41,24 @@ public class GameController extends JFrame {
 
             view.mainGamePanel.revalidate();
             view.mainGamePanel.repaint();
+        }
+    }
+
+    private class EnableTimeIncrementer implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new Timer(1000, new TimeIncrementer()).start();
+        }
+    }
+
+    private class TimeIncrementer implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int time = Integer.parseInt(view.timeElapsed.getText());
+            time++;
+            view.timeElapsed.setText(String.valueOf(time));
         }
     }
 }
