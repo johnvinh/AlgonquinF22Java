@@ -206,6 +206,10 @@ public class GameView extends JFrame {
         bottomPanel.add(movesPanel);
         bottomPanel.add(pointsPanel);
 
+        // Finish button
+        JButton finishButton = new JButton("Finish");
+        bottomPanel.add(finishButton);
+
         // Reset button
         JButton resetButton = new JButton("Reset");
         bottomPanel.add(resetButton);
