@@ -32,4 +32,12 @@ public class GameModel {
     public JButton[][] getBoard() {
         return board;
     }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
 }
