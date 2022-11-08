@@ -28,4 +28,8 @@ public class GameModel {
     public void setBoard(JButton[][] board) {
         this.board = board;
     }
+
+    public JButton[][] getBoard() {
+        return board;
+    }
 }
