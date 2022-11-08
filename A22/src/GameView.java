@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GameView extends JFrame {
     /**
@@ -26,6 +28,7 @@ public class GameView extends JFrame {
     public JComboBox typeChoice;
     public TextField designText;
     public JButton setDesignButton;
+    Random rand = new Random();
 
     public GameView() {
         super("NumPuz");
@@ -247,6 +250,11 @@ public class GameView extends JFrame {
         gridLayout.setRows(dim);
         mainGamePanel.removeAll();
 
+        ArrayList<String> tilesToAdd = new ArrayList<>();
+        for (int i = 1; i < dim*dim; i++) {
+            tilesToAdd.add(String.valueOf(i));
+        }
+
         // there should be dim*dim - 1 buttons, 1 space is left empty
         int tileNumber = 1;
         int tilesAdded = 0;
@@ -259,7 +267,10 @@ public class GameView extends JFrame {
                     mainGamePanel.add(board[i][j]);
                     break;
                 }
-                board[i][j] = new JButton(String.format("%s", tileNumber));
+                String randomTile = tilesToAdd.get(rand.nextInt(tilesToAdd.size()));
+                tilesToAdd.remove(randomTile);
+                board[i][j] = new JButton(randomTile);
+//                board[i][j] = new JButton(String.format("%s", tileNumber));
                 /*board[i][j].addActionListener(e -> {
                     moves++;
                     movesCountLabel.setText(String.valueOf(moves));
