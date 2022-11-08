@@ -259,7 +259,7 @@ public class GameView extends JFrame {
             setContentPane(content);
             setVisible(true);
             try {
-                Thread.sleep(1500);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
