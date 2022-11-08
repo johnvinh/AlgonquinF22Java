@@ -70,9 +70,10 @@ public class GameController extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int time = Integer.parseInt(view.timeElapsed.getText());
+            int time = model.getTimeElapsed();
             time++;
             view.timeElapsed.setText(String.valueOf(time));
+            model.setTimeElapsed(time);
         }
     }
 
