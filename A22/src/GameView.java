@@ -66,9 +66,21 @@ public class GameView extends JFrame {
         // Menu
         JMenuBar menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
+        JMenuItem newMenuItem = new JMenuItem("New");
+        JMenuItem solutionMenuItem = new JMenuItem("Solution");
         JMenuItem exitMenuItem = new JMenuItem("Exit");
+        gameMenu.add(newMenuItem);
+        gameMenu.add(solutionMenuItem);
         gameMenu.add(exitMenuItem);
         menuBar.add(gameMenu);
+
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem colorsMenuItem = new JMenuItem("Colors");
+        JMenuItem aboutMenuItem = new JMenuItem("About");
+        helpMenu.add(colorsMenuItem);
+        helpMenu.add(aboutMenuItem);
+        menuBar.add(helpMenu);
+
         setJMenuBar(menuBar);
 
         // Main game area
