@@ -181,6 +181,7 @@ public class GameView extends JFrame {
         JLabel typeLabel = new JLabel("Type");
         typeChoice = new JComboBox(new String[]{"Number", "Text"});
         typeChoice.setSelectedIndex(0);
+        designText.setEnabled(false);
         typeConstraints.gridx = 0;
         typeConstraints.gridy = 0;
         typePanel.add(typeLabel, typeConstraints);
