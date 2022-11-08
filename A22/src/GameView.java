@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class GameView {
+public class GameView extends JFrame {
     public GameView() {
         GameSplash splash = new GameSplash();
     }
