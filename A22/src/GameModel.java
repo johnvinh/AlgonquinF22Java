@@ -11,6 +11,7 @@ public class GameModel {
      */
     private JButton[][] board;
     private int moves = 0;
+    private int timeElapsed = 0;
 
     public GameModel() {
         this.dim = 3;
@@ -39,5 +40,13 @@ public class GameModel {
 
     public void setMoves(int moves) {
         this.moves = moves;
+    }
+
+    public int getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void setTimeElapsed(int timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 }
