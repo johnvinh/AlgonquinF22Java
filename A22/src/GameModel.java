@@ -10,6 +10,7 @@ public class GameModel {
      * A JButton array containing the buttons for the gameplay
      */
     private JButton[][] board;
+    private int moves = 0;
 
     public GameModel() {
         this.dim = 3;
