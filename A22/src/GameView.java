@@ -376,6 +376,8 @@ public class GameView extends JFrame {
     public static class ColorChanger extends JFrame {
         public JButton setColor1Button;
         public JButton setColor2Button;
+        public JButton color1Button;
+        public JButton color2Button;
 
         public ColorChanger(Color color1, Color color2) {
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -387,9 +389,9 @@ public class GameView extends JFrame {
             setSize(800, 600);
 
             JPanel content = new JPanel(colorLayout);
-            JButton color1Button = new JButton();
+            color1Button = new JButton();
             color1Button.setBackground(color1);
-            JButton color2Button = new JButton();
+            color2Button = new JButton();
             color2Button.setBackground(color2);
 
             setColor1Button = new JButton("Color1");
@@ -406,6 +408,14 @@ public class GameView extends JFrame {
 
             setContentPane(content);
             setVisible(true);
+        }
+
+        public void setButton1Color(Color color) {
+            color1Button.setBackground(color);
+        }
+
+        public void setButton2Color(Color color) {
+            color2Button.setBackground(color);
         }
     }
 

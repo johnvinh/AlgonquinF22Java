@@ -338,6 +338,9 @@ public class GameController extends JFrame {
                 colorPicker.colorPicker.getSelectionModel().addChangeListener(e2 -> {
                     Color selectedColor = colorPicker.colorPicker.getColor();
                     model.setCorrectColor(selectedColor);
+
+                    // Also adjust the color in our menu popup
+                    colorChanger.setButton1Color(selectedColor);
                 });
             });
             // Open up a new window to pick the color
@@ -347,6 +350,9 @@ public class GameController extends JFrame {
                 colorPicker.colorPicker.getSelectionModel().addChangeListener(e2 -> {
                     Color selectedColor = colorPicker.colorPicker.getColor();
                     model.setIncorrectColor(selectedColor);
+
+                    // Also adjust the color in our menu popup
+                    colorChanger.setButton2Color(selectedColor);
                 });
             });
         }
