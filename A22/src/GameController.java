@@ -11,10 +11,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameController extends JFrame {
@@ -59,6 +57,7 @@ public class GameController extends JFrame {
         view.showButton.addActionListener(new ShowButtonListener());
         view.hideButton.addActionListener(new HideButtonListener());
         view.saveButton.addActionListener(new SaveButtonListener());
+        view.loadButton.addActionListener(new LoadButtonListener());
 
         // Menu items
         view.newMenuItem.addActionListener(new NewMenuItemListener());
@@ -417,6 +416,7 @@ public class GameController extends JFrame {
                     board[i][j].setBackground(Color.WHITE);
                 }
             }
+            model.setBoard(board);
         }
     }
 
@@ -448,6 +448,7 @@ public class GameController extends JFrame {
                     }
                 }
             }
+            model.setBoard(board);
         }
     }
 
@@ -460,23 +461,67 @@ public class GameController extends JFrame {
             int dim = model.getDim();
             fileChooser.addActionListener(e1 -> {
                 File file = fileChooser.getSelectedFile();
+                if (file == null) {
+                    return;
+                }
                 try (FileWriter writer = new FileWriter(file)) {
                     StringBuilder output = new StringBuilder();
                     String isNumber = "false";
                     if (view.typeChoice.getSelectedIndex() == 0) {
                         isNumber = "true";
                     }
-                    output.append(dim).append(",").append(isNumber).append(":");
+                    output.append(dim).append("\n").append(isNumber).append("\n");
                     for (int i = 0; i < dim; i++) {
                         for (int j = 0; j < dim; j++) {
                             if (i == (dim - 1) && j == (dim - 1)) {
                                 output.append(solution[i][j]);
                                 continue;
                             }
-                            output.append(solution[i][j]).append(",");
+                            output.append(solution[i][j]).append("\n");
                         }
                     }
                     writer.write(output.toString());
+                } catch (IOException | NullPointerException error) {
+                    error.printStackTrace();
+                }
+            });
+            fileChooser.showOpenDialog(view);
+        }
+    }
+
+    private class LoadButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.addActionListener(e1 -> {
+                File file = fileChooser.getSelectedFile();
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    JButton[][] board = model.getBoard();
+                    int dim = Integer.parseInt(reader.readLine());
+                    String isNumber = reader.readLine();
+                    String line;
+                    // Read every line in the file, a solution always ends with "null"
+                    ArrayList<String> lines = new ArrayList<>();
+                    while (!((line = reader.readLine()).equals("null"))) {
+                        lines.add(line);
+                    }
+                    int linesIndex = 0;
+                    for (int i = 0; i < dim; i++) {
+                        for (int j = 0; j < dim; j++) {
+                            if (linesIndex == lines.size()) {
+                                board[i][j].setText("");
+                                board[i][j].setBackground(Color.BLACK);
+                                board[i][j].setEnabled(false);
+                                break;
+                            }
+                            board[i][j].setText(lines.get(linesIndex));
+                            board[i][j].setBackground(Color.WHITE);
+                            board[i][j].setEnabled(true);
+                            linesIndex++;
+                        }
+                    }
+                    model.setBoard(board);
                 } catch (IOException error) {
                     error.printStackTrace();
                 }
