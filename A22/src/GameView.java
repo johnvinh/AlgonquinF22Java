@@ -1,3 +1,10 @@
+/*
+Name: John Vinh
+Course: CST8221
+Assignment: A22
+Professor: Paulo Sousa
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

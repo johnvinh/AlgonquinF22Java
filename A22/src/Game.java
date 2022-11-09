@@ -1,3 +1,10 @@
+/*
+Name: John Vinh
+Course: CST8221
+Assignment: A22
+Professor: Paulo Sousa
+ */
+
 public class Game {
     /**
      * Run the game.
