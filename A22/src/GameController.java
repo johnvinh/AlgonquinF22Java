@@ -11,6 +11,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class GameController extends JFrame {
     private GameModel model;
@@ -52,6 +53,7 @@ public class GameController extends JFrame {
         view.finishButton.addActionListener(new FinishButtonListener());
         view.resetButton.addActionListener(new ResetButtonListener());
         view.showButton.addActionListener(new ShowButtonListener());
+        view.hideButton.addActionListener(new HideButtonListener());
 
         // Menu items
         view.newMenuItem.addActionListener(new NewMenuItemListener());
@@ -407,6 +409,37 @@ public class GameController extends JFrame {
                     }
                     board[i][j].setText(solution[i][j]);
                     board[i][j].setEnabled(true);
+                }
+            }
+        }
+    }
+
+    private class HideButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton[][] board = model.getBoard();
+            int dim = model.getDim();
+            Random rand = new Random();
+            // Randomize the positions of the tiles
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    int randomRow = rand.nextInt(dim);
+                    int randomColumn = rand.nextInt(dim);
+                    String temp = board[i][j].getText();
+                    board[i][j].setText(board[randomRow][randomColumn].getText());
+                    board[randomRow][randomColumn].setText(temp);
+                    board[i][j].setBackground(Color.WHITE);
+                    board[i][j].setEnabled(true);
+                }
+            }
+            // Re-style and disable the empty button
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    if (board[i][j].getText().equals("")) {
+                        board[i][j].setBackground(Color.BLACK);
+                        board[i][j].setEnabled(false);
+                    }
                 }
             }
         }
