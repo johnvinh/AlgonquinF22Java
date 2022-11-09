@@ -65,6 +65,7 @@ public class GameController extends JFrame {
     public void initialize() {
         model.setBoard(view.initializeView(model.getDim(), new DimBoxListener(), dimToSolution(model.getDim()), model));
         view.playMode.addActionListener(new PlayButtonClicked());
+        view.designButton.addActionListener(new DesignButtonClicked());
         view.typeChoice.addActionListener(new TypeChoiceListener());
         JButton[][] board = model.getBoard();
         for (int i = 0; i < model.getDim(); i++) {
@@ -152,6 +153,14 @@ public class GameController extends JFrame {
             model.setScore(initialScore);
             view.pointsCountLabel.setText(String.valueOf(initialScore));
             model.setMode("Play");
+        }
+    }
+
+    private class DesignButtonClicked implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            model.setMode("Design");
         }
     }
 
