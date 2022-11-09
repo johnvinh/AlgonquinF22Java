@@ -11,6 +11,10 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class GameController extends JFrame {
@@ -54,6 +58,7 @@ public class GameController extends JFrame {
         view.resetButton.addActionListener(new ResetButtonListener());
         view.showButton.addActionListener(new ShowButtonListener());
         view.hideButton.addActionListener(new HideButtonListener());
+        view.saveButton.addActionListener(new SaveButtonListener());
 
         // Menu items
         view.newMenuItem.addActionListener(new NewMenuItemListener());
@@ -443,6 +448,40 @@ public class GameController extends JFrame {
                     }
                 }
             }
+        }
+    }
+
+    private class SaveButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new JFileChooser();
+            String[][] solution = model.getSolution();
+            int dim = model.getDim();
+            fileChooser.addActionListener(e1 -> {
+                File file = fileChooser.getSelectedFile();
+                try (FileWriter writer = new FileWriter(file)) {
+                    StringBuilder output = new StringBuilder();
+                    String isNumber = "false";
+                    if (view.typeChoice.getSelectedIndex() == 0) {
+                        isNumber = "true";
+                    }
+                    output.append(dim).append(",").append(isNumber).append(":");
+                    for (int i = 0; i < dim; i++) {
+                        for (int j = 0; j < dim; j++) {
+                            if (i == (dim - 1) && j == (dim - 1)) {
+                                output.append(solution[i][j]);
+                                continue;
+                            }
+                            output.append(solution[i][j]).append(",");
+                        }
+                    }
+                    writer.write(output.toString());
+                } catch (IOException error) {
+                    error.printStackTrace();
+                }
+            });
+            fileChooser.showOpenDialog(view);
         }
     }
 

@@ -34,6 +34,8 @@ public class GameView extends JFrame {
     public JMenuItem newMenuItem;
     public JMenuItem colorsMenuItem;
     public JButton resetButton;
+    public JButton saveButton;
+    JButton loadButton;
     public JMenuItem solutionMenuItem;
     public JMenuItem exitMenuItem;
     Random rand = new Random();
@@ -190,8 +192,8 @@ public class GameView extends JFrame {
         JLabel solutionLabel = new JLabel("Solution");
         showButton = new JButton("Show");
         hideButton = new JButton("Hide");
-        JButton saveButton = new JButton("Save");
-        JButton loadButton = new JButton("Load");
+        saveButton = new JButton("Save");
+        loadButton = new JButton("Load");
         solutionConstraints.gridx = 0;
         solutionConstraints.gridy = 0;
         solutionConstraints.gridwidth = 4;
