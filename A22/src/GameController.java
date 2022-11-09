@@ -46,10 +46,15 @@ public class GameController extends JFrame {
                 board[i][j].addActionListener(new GameButtonListener());
             }
         }
+
+        // Buttons
         view.setDesignButton.addActionListener(new SetDesignListener());
         view.finishButton.addActionListener(new FinishButtonListener());
-        view.newMenuItem.addActionListener(new NewMenuItemListener());
         view.resetButton.addActionListener(new ResetButtonListener());
+        view.showButton.addActionListener(new ShowButtonListener());
+
+        // Menu items
+        view.newMenuItem.addActionListener(new NewMenuItemListener());
         view.colorsMenuItem.addActionListener(new ColorsMenuItemListener());
         view.solutionMenuItem.addActionListener(new SolutionMenuItemListener());
     }
@@ -377,6 +382,29 @@ public class GameController extends JFrame {
                     }
                     board[i][j].setText(solution[i][j]);
                     board[i][j].setBackground(correctColor);
+                    board[i][j].setEnabled(true);
+                }
+            }
+        }
+    }
+
+    private class ShowButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton[][] board = model.getBoard();
+            String[][] solution = model.getSolution();
+            int dim = model.getDim();
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    // The empty/black button
+                    if (i == (dim - 1) && j == (dim - 1)) {
+                        board[i][j].setText("");
+                        board[i][j].setBackground(Color.BLACK);
+                        board[i][j].setEnabled(false);
+                        continue;
+                    }
+                    board[i][j].setText(solution[i][j]);
                     board[i][j].setEnabled(true);
                 }
             }
