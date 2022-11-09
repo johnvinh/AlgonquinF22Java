@@ -409,6 +409,7 @@ public class GameController extends JFrame {
                     }
                     board[i][j].setText(solution[i][j]);
                     board[i][j].setEnabled(true);
+                    board[i][j].setBackground(Color.WHITE);
                 }
             }
         }
