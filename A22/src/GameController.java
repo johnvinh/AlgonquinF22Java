@@ -15,21 +15,41 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The game controller
+ */
 public class GameController extends JFrame {
+    /**
+     * The model of the game
+     */
     private GameModel model;
+    /**
+     * The view of the game
+     */
     private GameView view;
+    /**
+     * The timer which increments the time elapsed during a game
+     */
     private Timer timer;
 
+    /**
+     * Constructor for controller
+     * @param model the game model
+     * @param view  the game view
+     */
     GameController(GameModel model, GameView view) {
         this.model = model;
         this.view = view;
         initialize();
     }
 
-    public int getDim() {
-        return model.getDim();
-    }
-
+    /**
+     * A helper which converts a dimension to a string solution
+     * ie 3 becomes 12345678
+     *
+     * @param dim   the dimension
+     * @return  the string version of the solution
+     */
     public static String dimToSolution(int dim) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < dim*dim; i++) {
@@ -39,6 +59,9 @@ public class GameController extends JFrame {
         return sb.toString();
     }
 
+    /**
+     * Add all action listeners to the board
+     */
     public void initialize() {
         model.setBoard(view.initializeView(model.getDim(), new DimBoxListener(), dimToSolution(model.getDim()), model));
         view.playMode.addActionListener(new PlayButtonClicked());
@@ -66,6 +89,9 @@ public class GameController extends JFrame {
         view.colorsMenuItem.addActionListener(new ColorsMenuItemListener());
     }
 
+    /**
+     * Listens to dim box selection changes
+     */
     private class DimBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -87,6 +113,9 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the play radio button being clicked
+     */
     private class PlayButtonClicked implements ActionListener {
 
         @Override
@@ -125,6 +154,9 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Increments the time by 1 second
+     */
     private class TimeIncrementer implements ActionListener {
 
         @Override
@@ -136,6 +168,9 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Enable or disable the design text options based on choice
+     */
     private class TypeChoiceListener implements ActionListener {
 
         @Override
@@ -153,6 +188,14 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Swap two game buttons
+     * @param button1   the button which was clicked
+     * @param button2   the empty space button
+     * @param mode  the play mode
+     * @param newRow    the row of the empty space button
+     * @param newCol    the column of the empty space button
+     */
     private void swapButtons(JButton button1, JButton button2, String mode, int newRow, int newCol) {
         String temp = button1.getText();
         button2.setEnabled(true);
@@ -189,6 +232,10 @@ public class GameController extends JFrame {
             model.setScore(score);
         }
     }
+
+    /**
+     * Listens for clicks on each button on the game board
+     */
     private class GameButtonListener implements ActionListener {
 
         @Override
@@ -227,6 +274,9 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the set design text button being clicked
+     */
     private class SetDesignListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -268,12 +318,17 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for finish button being clicked
+     * Shows a game finished screen
+     */
     private class FinishButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             int currentPoints = model.getScore();
             int maxPoints = model.getDim() * model.getDim() - 1;
+            // Show a different screen based on the number of points
             if (currentPoints == maxPoints) {
                 new GameView.GameWinner();
             } else {
@@ -283,6 +338,9 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Reset the game
+     */
     private void reset() {
         timer.stop();
 
@@ -307,6 +365,10 @@ public class GameController extends JFrame {
         view.designText.setEnabled(false);
     }
 
+    /**
+     * Listens for the "New" menu item being selected
+     * It resets the game and scrambles the board.
+     */
     private class NewMenuItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -330,6 +392,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the reset button being clicked
+     * Resets the game
+     */
     private class ResetButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -337,6 +403,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Colors" menu item being clicked
+     * Shows the color selection menu
+     */
     private class ColorsMenuItemListener implements ActionListener {
 
         @Override
@@ -371,6 +441,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Solution" menu item being clicked
+     * Shows the game solution
+     */
     private class SolutionMenuItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -395,6 +469,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Show" button being clicked
+     * Shows the game solution, but only in "Design" mode
+     */
     private class ShowButtonListener implements ActionListener {
 
         @Override
@@ -420,6 +498,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Hide" button being clicked
+     * Scrambles the board, but only in "Design" mode
+     */
     private class HideButtonListener implements ActionListener {
 
         @Override
@@ -452,6 +534,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Save" button being clicked
+     * Saves the solution to a file
+     */
     private class SaveButtonListener implements ActionListener {
 
         @Override
@@ -489,6 +575,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Load" button being clicked
+     * Loads a solution from a file
+     */
     private class LoadButtonListener implements ActionListener {
 
         @Override
@@ -530,6 +620,10 @@ public class GameController extends JFrame {
         }
     }
 
+    /**
+     * Listens for the "Exit" menu item being clicked
+     * Exits the application
+     */
     private class ExitMenuItemListener implements ActionListener {
 
         @Override
