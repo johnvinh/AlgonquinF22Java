@@ -35,6 +35,7 @@ public class GameView extends JFrame {
     public JMenuItem colorsMenuItem;
     public JButton resetButton;
     public JMenuItem solutionMenuItem;
+    public JMenuItem exitMenuItem;
     Random rand = new Random();
 
     public GameView() {
@@ -73,7 +74,7 @@ public class GameView extends JFrame {
         JMenu gameMenu = new JMenu("Game");
         newMenuItem = new JMenuItem("New");
         solutionMenuItem = new JMenuItem("Solution");
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem = new JMenuItem("Exit");
         gameMenu.add(newMenuItem);
         gameMenu.add(solutionMenuItem);
         gameMenu.add(exitMenuItem);

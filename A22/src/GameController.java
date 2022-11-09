@@ -55,8 +55,9 @@ public class GameController extends JFrame {
 
         // Menu items
         view.newMenuItem.addActionListener(new NewMenuItemListener());
-        view.colorsMenuItem.addActionListener(new ColorsMenuItemListener());
         view.solutionMenuItem.addActionListener(new SolutionMenuItemListener());
+        view.exitMenuItem.addActionListener(new ExitMenuItemListener());
+        view.colorsMenuItem.addActionListener(new ColorsMenuItemListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -408,6 +409,14 @@ public class GameController extends JFrame {
                     board[i][j].setEnabled(true);
                 }
             }
+        }
+    }
+
+    private class ExitMenuItemListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
         }
     }
 }
