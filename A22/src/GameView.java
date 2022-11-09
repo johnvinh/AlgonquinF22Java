@@ -32,6 +32,7 @@ public class GameView extends JFrame {
     public JComboBox dimComoBox;
     public JButton finishButton;
     public JMenuItem newMenuItem;
+    public JMenuItem colorsMenuItem;
     public JButton resetButton;
     Random rand = new Random();
 
@@ -78,7 +79,7 @@ public class GameView extends JFrame {
         menuBar.add(gameMenu);
 
         JMenu helpMenu = new JMenu("Help");
-        JMenuItem colorsMenuItem = new JMenuItem("Colors");
+        colorsMenuItem = new JMenuItem("Colors");
         JMenuItem aboutMenuItem = new JMenuItem("About");
         helpMenu.add(colorsMenuItem);
         helpMenu.add(aboutMenuItem);
@@ -365,6 +366,36 @@ public class GameView extends JFrame {
             JButton okButton = new JButton("OK");
             okButton.addActionListener(e -> dispose());
             content.add(okButton, BorderLayout.SOUTH);
+            setContentPane(content);
+            setVisible(true);
+        }
+    }
+
+    public static class ColorChanger extends JFrame {
+        public ColorChanger(Color color1, Color color2) {
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            GridLayout colorLayout = new GridLayout();
+            colorLayout.setColumns(2);
+            colorLayout.setRows(2);
+
+            setSize(800, 600);
+
+            JPanel content = new JPanel(colorLayout);
+            JButton color1Button = new JButton();
+            color1Button.setBackground(color1);
+            JButton color2Button = new JButton();
+            color2Button.setBackground(color2);
+
+            JButton setColor1Button = new JButton("Color1");
+            JButton setColor2Button = new JButton("Color2");
+
+            setLayout(colorLayout);
+            content.add(color1Button);
+            content.add(color2Button);
+            content.add(setColor1Button);
+            content.add(setColor2Button);
+
             setContentPane(content);
             setVisible(true);
         }

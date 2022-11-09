@@ -48,6 +48,7 @@ public class GameController extends JFrame {
         view.finishButton.addActionListener(new FinishButtonListener());
         view.newMenuItem.addActionListener(new NewMenuItemListener());
         view.resetButton.addActionListener(new ResetButtonListener());
+        view.colorsMenuItem.addActionListener(new ColorsMenuItemListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -318,6 +319,16 @@ public class GameController extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             reset();
+        }
+    }
+
+    private class ColorsMenuItemListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Color color1 = model.getCorrectColor();
+            Color color2 = model.getIncorrectColor();
+            new GameView.ColorChanger(color1, color2);
         }
     }
 }
