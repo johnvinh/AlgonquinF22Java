@@ -51,6 +51,7 @@ public class GameController extends JFrame {
         view.newMenuItem.addActionListener(new NewMenuItemListener());
         view.resetButton.addActionListener(new ResetButtonListener());
         view.colorsMenuItem.addActionListener(new ColorsMenuItemListener());
+        view.solutionMenuItem.addActionListener(new SolutionMenuItemListener());
     }
 
     private class DimBoxListener implements ActionListener {
@@ -355,6 +356,30 @@ public class GameController extends JFrame {
                     colorChanger.setButton2Color(selectedColor);
                 });
             });
+        }
+    }
+
+    private class SolutionMenuItemListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Color correctColor = model.getCorrectColor();
+            JButton[][] board = model.getBoard();
+            String[][] solution = model.getSolution();
+            int dim = model.getDim();
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    // The empty/black button
+                    if (i == (dim - 1) && j == (dim - 1)) {
+                        board[i][j].setText("");
+                        board[i][j].setBackground(Color.BLACK);
+                        board[i][j].setEnabled(false);
+                        continue;
+                    }
+                    board[i][j].setText(solution[i][j]);
+                    board[i][j].setBackground(correctColor);
+                    board[i][j].setEnabled(true);
+                }
+            }
         }
     }
 }
