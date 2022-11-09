@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The game view, handles the UI
+ */
 public class GameView extends JFrame {
     /**
      * The layout for the whole application

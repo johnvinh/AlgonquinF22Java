@@ -8,6 +8,9 @@ Professor: Paulo Sousa
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The game model, stores the data
+ */
 public class GameModel {
     private String[][] solution;
     /**
