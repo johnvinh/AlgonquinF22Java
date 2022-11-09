@@ -337,6 +337,12 @@ public class GameController extends JFrame {
             if (timer != null) {
                 timer.stop();
             }
+            // Partial reset: keep score, time, and moves
+            view.playMode.setEnabled(true);
+            view.dimComoBox.setEnabled(true);
+            view.showButton.setEnabled(true);
+            view.hideButton.setEnabled(true);
+            view.typeChoice.setEnabled(true);
         }
     }
 
