@@ -5,6 +5,9 @@ Assignment: A22
 Professor: Paulo Sousa
  */
 
+/**
+ * The main class, runs the game
+ */
 public class Game {
     /**
      * Run the game.
