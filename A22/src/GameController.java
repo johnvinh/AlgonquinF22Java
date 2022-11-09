@@ -6,6 +6,8 @@ Professor: Paulo Sousa
  */
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,9 +100,9 @@ public class GameController extends JFrame {
                     }
                     if (board[i][j].getText().equals(solution[i][j])) {
                         initialScore++;
-                        board[i][j].setBackground(Color.GREEN);
+                        board[i][j].setBackground(model.getCorrectColor());
                     } else {
-                        board[i][j].setBackground(Color.RED);
+                        board[i][j].setBackground(model.getIncorrectColor());
                     }
                 }
             }
@@ -155,9 +157,9 @@ public class GameController extends JFrame {
             String[][] solution = model.getSolution();
             // Button 2 is the new position of the button
             if (button2.getText().equals(solution[newRow][newCol])) {
-                button2.setBackground(Color.GREEN);
+                button2.setBackground(model.getCorrectColor());
             } else {
-                button2.setBackground(Color.RED);
+                button2.setBackground(model.getIncorrectColor());
             }
 
             // Get new score
@@ -328,7 +330,25 @@ public class GameController extends JFrame {
         public void actionPerformed(ActionEvent e) {
             Color color1 = model.getCorrectColor();
             Color color2 = model.getIncorrectColor();
-            new GameView.ColorChanger(color1, color2);
+            GameView.ColorChanger colorChanger = new GameView.ColorChanger(color1, color2);
+            // Open up a new window to pick the color
+            colorChanger.setColor1Button.addActionListener(e1 -> {
+                GameView.ColorPicker colorPicker = new GameView.ColorPicker(color1, model);
+                // When the selected color changes, set it in model
+                colorPicker.colorPicker.getSelectionModel().addChangeListener(e2 -> {
+                    Color selectedColor = colorPicker.colorPicker.getColor();
+                    model.setCorrectColor(selectedColor);
+                });
+            });
+            // Open up a new window to pick the color
+            colorChanger.setColor2Button.addActionListener(e12 -> {
+                GameView.ColorPicker colorPicker = new GameView.ColorPicker(color1, model);
+                // When the selected color changes, set it in model
+                colorPicker.colorPicker.getSelectionModel().addChangeListener(e2 -> {
+                    Color selectedColor = colorPicker.colorPicker.getColor();
+                    model.setIncorrectColor(selectedColor);
+                });
+            });
         }
     }
 }

@@ -34,6 +34,8 @@ public class GameView extends JFrame {
     public JMenuItem newMenuItem;
     public JMenuItem colorsMenuItem;
     public JButton resetButton;
+    public JButton setColor1Button;
+    public JButton setColor2Button;
     Random rand = new Random();
 
     public GameView() {
@@ -372,6 +374,9 @@ public class GameView extends JFrame {
     }
 
     public static class ColorChanger extends JFrame {
+        public JButton setColor1Button;
+        public JButton setColor2Button;
+
         public ColorChanger(Color color1, Color color2) {
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -387,8 +392,11 @@ public class GameView extends JFrame {
             JButton color2Button = new JButton();
             color2Button.setBackground(color2);
 
-            JButton setColor1Button = new JButton("Color1");
-            JButton setColor2Button = new JButton("Color2");
+            setColor1Button = new JButton("Color1");
+            setColor1Button.addActionListener(e -> {
+
+            });
+            setColor2Button = new JButton("Color2");
 
             setLayout(colorLayout);
             content.add(color1Button);
@@ -397,6 +405,26 @@ public class GameView extends JFrame {
             content.add(setColor2Button);
 
             setContentPane(content);
+            setVisible(true);
+        }
+    }
+
+    public static class ColorPicker extends JFrame {
+        JColorChooser colorPicker;
+
+        public ColorPicker(Color selected, GameModel model) {
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            JPanel panel = new JPanel(new BorderLayout());
+            setSize(800, 600);
+            colorPicker = new JColorChooser(selected);
+            JButton okButton = new JButton("OK");
+            // Close the window, same as if we pressed the X button
+            okButton.addActionListener(e -> {
+                dispose();
+            });
+            panel.add(colorPicker, BorderLayout.CENTER);
+            panel.add(okButton, BorderLayout.SOUTH);
+            setContentPane(panel);
             setVisible(true);
         }
     }
