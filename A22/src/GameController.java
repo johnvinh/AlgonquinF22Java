@@ -334,7 +334,9 @@ public class GameController extends JFrame {
             } else {
                 new GameView.GameFinish();
             }
-            timer.stop();
+            if (timer != null) {
+                timer.stop();
+            }
         }
     }
 
