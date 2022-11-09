@@ -289,6 +289,7 @@ public class GameView extends JFrame {
                     board[i][j] = new JButton();
                     board[i][j].setEnabled(false);
                     board[i][j].setBackground(Color.BLACK);
+                    board[i][j].setFont(new Font ("Verdana", Font.PLAIN, 70));
                     mainGamePanel.add(board[i][j]);
                     break;
                 }
