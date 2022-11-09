@@ -129,6 +129,7 @@ public class GameController extends JFrame {
             view.hideButton.setEnabled(false);
             view.typeChoice.setEnabled(false);
             view.playMode.setEnabled(false);
+            view.designButton.setEnabled(false);
             view.dimComoBox.setEnabled(false);
 
             // Check if each tile is correct
@@ -343,6 +344,7 @@ public class GameController extends JFrame {
             view.showButton.setEnabled(true);
             view.hideButton.setEnabled(true);
             view.typeChoice.setEnabled(true);
+            view.designButton.setEnabled(true);
         }
     }
 
