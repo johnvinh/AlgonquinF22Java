@@ -25,32 +25,106 @@ public class GameView extends JFrame {
      * A text area for displaying info about the game execution
      */
     public JTextArea sideInfo;
+    /**
+     * A panel for showing the buttons which play the game
+     */
     public JPanel mainGamePanel;
+    /**
+     * A label which shows how many moves have been made
+     */
     public JLabel movesCountLabel;
+    /**
+     * Shows how many seconds have elapsed
+     */
     public JLabel timeElapsed;
+    /**
+     * Button to enter design mode
+     */
     public JRadioButton designButton;
+    /**
+     * Button to enter play mode
+     */
     public JRadioButton playMode;
+    /**
+     * Button to show the solution in Design mode
+     */
     public JButton showButton;
+    /**
+     * Button to scramble (hide) the solution in Design mode
+     */
     public JButton hideButton;
+    /**
+     * Combo box to choose between Number or List for type
+     */
     public JComboBox typeChoice;
+    /**
+     * A text field for writing the design text
+     */
     public TextField designText;
+    /**
+     * A button for setting the design text
+     */
     public JButton setDesignButton;
+    /**
+     * Displays the points
+     */
     public JLabel pointsCountLabel;
+    /**
+     * Select the dimensions (dim)
+     */
     public JComboBox dimComoBox;
+    /**
+     * Finish the game and display a screen
+     */
     public JButton finishButton;
+    /**
+     * Start a new game and scramble
+     */
     public JMenuItem newMenuItem;
+    /**
+     * Change the colors of the game
+     */
     public JMenuItem colorsMenuItem;
+    /**
+     * Reset the game
+     */
     public JButton resetButton;
+    /**
+     * Save the solution to a file
+     */
     public JButton saveButton;
+    /**
+     * Load the solution from a file
+     */
     JButton loadButton;
+    /**
+     * Show the solution while in Play mode
+     */
     public JMenuItem solutionMenuItem;
+    /**
+     * Exit the application
+     */
     public JMenuItem exitMenuItem;
+    /**
+     * Generates random numbers for scrambling
+     */
     Random rand = new Random();
 
+    /**
+     * Constructor for the view
+     */
     public GameView() {
         super("NumPuz");
     }
 
+    /**
+     * Initialize the view.
+     * @param initialDim    starting dimension
+     * @param dimBoxListener    an action listener for the dim box
+     * @param solution  a solution for the initial board
+     * @param model the game model
+     * @return  the game board
+     */
     public JButton[][] initializeView(int initialDim, ActionListener dimBoxListener, String solution, GameModel model) {
         GameSplash splash = new GameSplash();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -284,6 +358,13 @@ public class GameView extends JFrame {
         return board;
     }
 
+    /**
+     * Setup the game board.
+     * @param dim   the dimensions
+     * @param solution  a solution to the puzzle
+     * @param model the game model
+     * @return  the new game board
+     */
     public JButton[][] setupBoard(int dim, String solution, GameModel model) {
         // Game buttons
         JButton[][] board = new JButton[dim][dim];
@@ -330,6 +411,9 @@ public class GameView extends JFrame {
         return board;
     }
 
+    /**
+     * Display a splash screen.
+     */
     private class GameSplash extends JWindow {
         public GameSplash() {
             JPanel content = new JPanel(new BorderLayout());
@@ -353,6 +437,9 @@ public class GameView extends JFrame {
         }
     }
 
+    /**
+     * Display a winner screen.
+     */
     public static class GameWinner extends JWindow {
         public GameWinner() {
             JPanel content = new JPanel(new BorderLayout());
@@ -374,6 +461,9 @@ public class GameView extends JFrame {
         }
     }
 
+    /**
+     * Display a game finished screen.
+     */
     public static class GameFinish extends JWindow {
         public GameFinish() {
             JPanel content = new JPanel(new BorderLayout());
@@ -395,6 +485,9 @@ public class GameView extends JFrame {
         }
     }
 
+    /**
+     * Change either of the two colors.
+     */
     public static class ColorChanger extends JFrame {
         public JButton setColor1Button;
         public JButton setColor2Button;
@@ -441,6 +534,9 @@ public class GameView extends JFrame {
         }
     }
 
+    /**
+     * Pick a new color.
+     */
     public static class ColorPicker extends JFrame {
         JColorChooser colorPicker;
 
