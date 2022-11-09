@@ -190,9 +190,11 @@ public class GameView extends JFrame {
         JLabel solutionLabel = new JLabel("Solution");
         showButton = new JButton("Show");
         hideButton = new JButton("Hide");
+        JButton saveButton = new JButton("Save");
+        JButton loadButton = new JButton("Load");
         solutionConstraints.gridx = 0;
         solutionConstraints.gridy = 0;
-        solutionConstraints.gridwidth = 2;
+        solutionConstraints.gridwidth = 4;
         solutionConstraints.gridheight = 1;
         solutionPanel.add(solutionLabel, solutionConstraints);
         solutionConstraints.gridx = 0;
@@ -200,11 +202,21 @@ public class GameView extends JFrame {
         solutionConstraints.gridwidth = 1;
         solutionConstraints.gridheight = 1;
         solutionPanel.add(showButton, solutionConstraints);
-        solutionConstraints.gridx = 1;
-        solutionConstraints.gridy = 1;
+        solutionConstraints.gridx = 0;
+        solutionConstraints.gridy = 2;
         solutionConstraints.gridwidth = 1;
         solutionConstraints.gridheight = 1;
         solutionPanel.add(hideButton, solutionConstraints);
+        solutionConstraints.gridx = 0;
+        solutionConstraints.gridy = 3;
+        solutionConstraints.gridwidth = 1;
+        solutionConstraints.gridheight = 1;
+        solutionPanel.add(saveButton, solutionConstraints);
+        solutionConstraints.gridx = 0;
+        solutionConstraints.gridy = 4;
+        solutionConstraints.gridwidth = 1;
+        solutionConstraints.gridheight = 1;
+        solutionPanel.add(loadButton, solutionConstraints);
 
         // Type
         JLabel typeLabel = new JLabel("Type");
