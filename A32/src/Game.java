@@ -17,5 +17,6 @@ public class Game {
         GameModel gameModel = new GameModel();
         GameView gameView = new GameView();
         GameController main = new GameController(gameModel, gameView);
+        NumPuzServerGui serverGui = new NumPuzServerGui();
     }
 }
