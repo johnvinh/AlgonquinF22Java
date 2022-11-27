@@ -52,6 +52,11 @@ public class NumPuzClientGui extends JFrame {
         middlePanel.add(receiveGameButton);
         middlePanel.add(sendDataButton);
         middlePanel.add(playButton);
+        newGameButton.setEnabled(false);
+        sendGameButton.setEnabled(false);
+        receiveGameButton.setEnabled(false);
+        sendDataButton.setEnabled(false);
+        playButton.setEnabled(false);
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(logArea);
