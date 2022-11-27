@@ -1,5 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
 public class NumPuzServerGui extends JFrame {
     private final JLabel portLabel;
@@ -7,6 +13,8 @@ public class NumPuzServerGui extends JFrame {
     private final JButton startButton;
     private final JButton endButton;
     private final JTextArea logTextArea;
+    NumPuzServer server;
+    NumPuzServerGui serverGui;
 
     NumPuzServerGui() {
         super("Game Server");
@@ -31,5 +39,39 @@ public class NumPuzServerGui extends JFrame {
         add(middlePanel, BorderLayout.NORTH);
         add(bottomPanel, BorderLayout.CENTER);
         setVisible(true);
+
+        startButton.addActionListener(new StartButtonClick());
+
+        serverGui = this;
+    }
+
+    public JTextArea getLogTextArea() {
+        return logTextArea;
+    }
+
+    private class StartButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String enteredPort = portInput.getText();
+            int port;
+            try {
+                port = Integer.parseInt(enteredPort);
+            } catch (NumberFormatException error) {
+                JOptionPane.showMessageDialog(null, "That port number is invalid.",
+                        "Invalid Port Number", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                server = new NumPuzServer(port, serverGui);
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(null, "Error starting the server!",
+                        "Error Starting Server", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            logTextArea.append("Successfully started server!\n");
+        }
     }
 }

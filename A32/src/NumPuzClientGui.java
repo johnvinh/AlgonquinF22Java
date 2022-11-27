@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
 
 public class NumPuzClientGui extends JFrame {
     private final JLabel userLabel;
@@ -16,6 +20,7 @@ public class NumPuzClientGui extends JFrame {
     private final JButton sendDataButton;
     private final JButton playButton;
     private final JTextArea logArea;
+    private Socket client;
 
     NumPuzClientGui() {
         super("Game Client");
@@ -66,5 +71,42 @@ public class NumPuzClientGui extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 
         setVisible(true);
+
+        connectButton.addActionListener(new ConnectButtonClick());
+    }
+
+    private class ConnectButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String enteredServer = server.getText();
+            String enteredPort = port.getText();
+            int port;
+
+            try {
+                port = Integer.parseInt(enteredPort);
+            } catch (NumberFormatException error) {
+                JOptionPane.showMessageDialog(null, "That port is invalid.",
+                        "Invalid Port", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                client = new Socket(enteredServer, port);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error connecting to server!",
+                        "Server Connection Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                out.println(user.getText());
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            logArea.append("Connected to server!\n");
+        }
     }
 }
