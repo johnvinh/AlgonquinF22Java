@@ -37,10 +37,10 @@ public class GameController extends JFrame {
      * @param model the game model
      * @param view  the game view
      */
-    GameController(GameModel model, GameView view) {
+    GameController(GameModel model, GameView view, String serverSolution) {
         this.model = model;
         this.view = view;
-        initialize();
+        initialize(serverSolution);
     }
 
     /**
@@ -62,8 +62,8 @@ public class GameController extends JFrame {
     /**
      * Add all action listeners to the board
      */
-    public void initialize() {
-        model.setBoard(view.initializeView(model.getDim(), new DimBoxListener(), dimToSolution(model.getDim()), model));
+    public void initialize(String serverSolution) {
+        model.setBoard(view.initializeView(model.getDim(), new DimBoxListener(), serverSolution, model));
         view.playMode.addActionListener(new PlayButtonClicked());
         view.designButton.addActionListener(new DesignButtonClicked());
         view.typeChoice.addActionListener(new TypeChoiceListener());
@@ -649,5 +649,9 @@ public class GameController extends JFrame {
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
+    }
+
+    public GameModel getModel() {
+        return model;
     }
 }

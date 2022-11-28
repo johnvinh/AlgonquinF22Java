@@ -22,6 +22,7 @@ public class NumPuzClientGui extends JFrame {
     private final JTextArea logArea;
     private Socket client;
     private String solution;
+    private GameController controller;
 
     NumPuzClientGui() {
         super("Game Client");
@@ -77,6 +78,8 @@ public class NumPuzClientGui extends JFrame {
         newGameButton.addActionListener(new NewGameButtonClick());
         sendGameButton.addActionListener(new SendGameButtonClick());
         receiveGameButton.addActionListener(new ReceiveGameButtonClick());
+        playButton.addActionListener(new PlayButtonClick());
+        sendDataButton.addActionListener(new SendDataButtonClick());
     }
 
     private class ConnectButtonClick implements ActionListener {
@@ -114,6 +117,8 @@ public class NumPuzClientGui extends JFrame {
             newGameButton.setEnabled(true);
             sendGameButton.setEnabled(true);
             receiveGameButton.setEnabled(true);
+            playButton.setEnabled(true);
+            sendDataButton.setEnabled(true);
         }
     }
 
@@ -156,6 +161,34 @@ public class NumPuzClientGui extends JFrame {
             } catch (IOException error) {
                 throw new RuntimeException(error);
             }
+        }
+    }
+
+    private class PlayButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GameModel gameModel = new GameModel();
+            GameView gameView = new GameView();
+            controller = new GameController(gameModel, gameView, solution);
+        }
+    }
+
+    private class SendDataButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            GameModel model = controller.getModel();
+            int moves = model.getMoves();
+            int score = model.getScore();
+
+            try {
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                out.println("data:" + moves + "," + score);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            logArea.append(String.format("Sent game data to server: %d moves, %d points\n", moves, score));
         }
     }
 }

@@ -53,6 +53,14 @@ public class NumPuzServer {
                         PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                         out.println("config:" + gui.getConfiguration());
                         gui.getLogTextArea().append("Sent current config to " + clientName + "\n");
+                    } else if (message.startsWith("data:")) {
+                        String data = message.split(":")[1];
+                        String[] dataSplit = data.split(",");
+                        String moves = dataSplit[0];
+                        String score = dataSplit[1];
+                        String output =
+                        "Got data from client " + clientName + ": " + moves + " moves, " + score + " score\n";
+                        gui.getLogTextArea().append(output);
                     }
                 }
             } catch (IOException e) {
