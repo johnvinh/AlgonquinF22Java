@@ -21,6 +21,7 @@ public class NumPuzClientGui extends JFrame {
     private final JButton playButton;
     private final JTextArea logArea;
     private Socket client;
+    private String solution;
 
     NumPuzClientGui() {
         super("Game Client");
@@ -73,6 +74,7 @@ public class NumPuzClientGui extends JFrame {
         setVisible(true);
 
         connectButton.addActionListener(new ConnectButtonClick());
+        newGameButton.addActionListener(new NewGameButtonClick());
     }
 
     private class ConnectButtonClick implements ActionListener {
@@ -107,6 +109,16 @@ public class NumPuzClientGui extends JFrame {
                 throw new RuntimeException(ex);
             }
             logArea.append("Connected to server!\n");
+            newGameButton.setEnabled(true);
+        }
+    }
+
+    private class NewGameButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            solution = GameController.dimToSolution(3);
+            logArea.append("New game configuration: " + solution);
         }
     }
 }
