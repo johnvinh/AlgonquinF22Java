@@ -76,6 +76,7 @@ public class NumPuzClientGui extends JFrame {
         connectButton.addActionListener(new ConnectButtonClick());
         newGameButton.addActionListener(new NewGameButtonClick());
         sendGameButton.addActionListener(new SendGameButtonClick());
+        receiveGameButton.addActionListener(new ReceiveGameButtonClick());
     }
 
     private class ConnectButtonClick implements ActionListener {
@@ -111,6 +112,8 @@ public class NumPuzClientGui extends JFrame {
             }
             logArea.append("Connected to server!\n");
             newGameButton.setEnabled(true);
+            sendGameButton.setEnabled(true);
+            receiveGameButton.setEnabled(true);
         }
     }
 
@@ -120,7 +123,6 @@ public class NumPuzClientGui extends JFrame {
         public void actionPerformed(ActionEvent e) {
             solution = GameController.dimToSolution(3);
             logArea.append("New game configuration: " + solution + "\n");
-            sendGameButton.setEnabled(true);
         }
     }
 
@@ -135,6 +137,25 @@ public class NumPuzClientGui extends JFrame {
                 throw new RuntimeException(ex);
             }
             logArea.append("Sent game configuration to server\n");
+        }
+    }
+
+    private class ReceiveGameButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                out.println("requestConfig");
+                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                String message = in.readLine();
+                if (message.startsWith("config:")) {
+                    solution = message.split(":")[1];
+                    logArea.append("Received config from server: " + solution + "\n");
+                }
+            } catch (IOException error) {
+                throw new RuntimeException(error);
+            }
         }
     }
 }

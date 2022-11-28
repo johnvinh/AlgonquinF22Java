@@ -54,6 +54,10 @@ public class NumPuzServerGui extends JFrame {
         this.configuration = configuration;
     }
 
+    public String getConfiguration() {
+        return configuration;
+    }
+
     private class StartButtonClick implements ActionListener {
 
         @Override

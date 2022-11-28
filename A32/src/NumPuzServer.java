@@ -9,6 +9,7 @@ public class NumPuzServer {
     Thread newClientThread;
     Thread listenForMessageThread;
     NumPuzServerGui gui;
+    String clientName;
 
     public NumPuzServer(int port, NumPuzServerGui gui) throws IOException {
         socket = new ServerSocket(port);
@@ -24,7 +25,8 @@ public class NumPuzServer {
             try {
                 client = socket.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                gui.getLogTextArea().append("New connected user: " + in.readLine() + "\n");
+                clientName = in.readLine();
+                gui.getLogTextArea().append("New connected user: " + clientName + "\n");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -47,6 +49,10 @@ public class NumPuzServer {
                         String config = message.split(":")[1];
                         gui.setConfiguration(config);
                         gui.getLogTextArea().append("Received configuration: " + config + "\n");
+                    } else if (message.startsWith("requestConfig")) {
+                        PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                        out.println("config:" + gui.getConfiguration());
+                        gui.getLogTextArea().append("Sent current config to " + clientName + "\n");
                     }
                 }
             } catch (IOException e) {
