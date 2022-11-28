@@ -178,6 +178,11 @@ public class NumPuzClientGui extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (controller == null) {
+                JOptionPane.showMessageDialog(null, "Game not started!",
+                        "Game Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             GameModel model = controller.getModel();
             int moves = model.getMoves();
             int score = model.getScore();
