@@ -75,6 +75,7 @@ public class NumPuzClientGui extends JFrame {
 
         connectButton.addActionListener(new ConnectButtonClick());
         newGameButton.addActionListener(new NewGameButtonClick());
+        sendGameButton.addActionListener(new SendGameButtonClick());
     }
 
     private class ConnectButtonClick implements ActionListener {
@@ -118,7 +119,22 @@ public class NumPuzClientGui extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             solution = GameController.dimToSolution(3);
-            logArea.append("New game configuration: " + solution);
+            logArea.append("New game configuration: " + solution + "\n");
+            sendGameButton.setEnabled(true);
+        }
+    }
+
+    private class SendGameButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                out.println("config:" + solution);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            logArea.append("Sent game configuration to server\n");
         }
     }
 }

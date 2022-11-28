@@ -15,6 +15,7 @@ public class NumPuzServerGui extends JFrame {
     private final JTextArea logTextArea;
     NumPuzServer server;
     NumPuzServerGui serverGui;
+    private String configuration;
 
     NumPuzServerGui() {
         super("Game Server");
@@ -47,6 +48,10 @@ public class NumPuzServerGui extends JFrame {
 
     public JTextArea getLogTextArea() {
         return logTextArea;
+    }
+
+    public void setConfiguration(String configuration) {
+        this.configuration = configuration;
     }
 
     private class StartButtonClick implements ActionListener {
