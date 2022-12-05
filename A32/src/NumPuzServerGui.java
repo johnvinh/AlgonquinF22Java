@@ -169,7 +169,7 @@ public class NumPuzServerGui extends JFrame {
                 outputMessage.append(playerNames.get(key));
                 outputMessage.append(", points: ").append(stats.get(1));
                 outputMessage.append(", time: ").append(stats.get(2));
-                outputMessage.append(", score: ").append(stats.get(0));
+                outputMessage.append(", moves: ").append(stats.get(0));
                 outputMessage.append("\n");
             }
             JOptionPane.showMessageDialog(null, outputMessage.toString(),
