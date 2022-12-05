@@ -33,7 +33,7 @@ public class NumPuzServerGui extends JFrame {
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
         add(topPanel, BorderLayout.NORTH);
-        setSize(800, 600);
+        setSize(600, 600);
 
         portLabel = new JLabel("Port:");
         portInput = new JTextField(8);
