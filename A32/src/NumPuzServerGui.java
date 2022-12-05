@@ -94,6 +94,7 @@ public class NumPuzServerGui extends JFrame {
 
         startButton.addActionListener(new StartButtonClick());
         resultsButton.addActionListener(new ResultsButtonClick());
+        endButton.addActionListener(new EndButtonClick());
 
         serverGui = this;
     }
@@ -174,6 +175,18 @@ public class NumPuzServerGui extends JFrame {
             }
             JOptionPane.showMessageDialog(null, outputMessage.toString(),
                     "Game Results", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    /**
+     * Ends the server.
+     */
+    private class EndButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            server.close();
+            logTextArea.append("Server closed\n");
         }
     }
 }

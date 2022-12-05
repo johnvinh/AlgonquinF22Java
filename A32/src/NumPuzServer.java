@@ -96,7 +96,8 @@ public class NumPuzServer {
                     // Make sure every user has a unique ID
                     nextClientId++;
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("Server socket closed");
+                    return;
                 }
                 listenForMessageThread.start();
             }
@@ -147,7 +148,7 @@ public class NumPuzServer {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Server socket closed");
             }
         }
     }
@@ -166,5 +167,24 @@ public class NumPuzServer {
      */
     public HashMap<Integer, String> getPlayerNames() {
         return playerNames;
+    }
+
+    /**
+     * Closes the server socket.
+     */
+    public void close() {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            System.out.println("Failed to close server");
+        }
+        newClientThread.interrupt();
+        for (Integer id : clientSockets.keySet()) {
+            try {
+                clientSockets.get(id).close();
+            } catch (IOException e) {
+                System.out.println("Failed to close socket of client ID " + id);
+            }
+        }
     }
 }
