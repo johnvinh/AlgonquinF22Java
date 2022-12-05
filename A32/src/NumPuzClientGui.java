@@ -211,7 +211,7 @@ public class NumPuzClientGui extends JFrame {
 
             try {
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                out.println("data:" + moves + "," + score + "," + time);
+                out.println("data:" + clientId + "," + moves + "," + score + "," + time);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

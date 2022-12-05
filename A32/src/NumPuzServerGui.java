@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class NumPuzServerGui extends JFrame {
@@ -106,7 +108,21 @@ public class NumPuzServerGui extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            HashMap<Integer, ArrayList<Integer>> playerStats = server.getPlayerStats();
+            HashMap<Integer, String> playerNames = server.getPlayerNames();
+            StringBuilder outputMessage = new StringBuilder();
+            outputMessage.append("Game results:\n");
+            for (Integer key : playerStats.keySet()) {
+                ArrayList<Integer> stats = playerStats.get(key);
+                outputMessage.append("Player[").append(key).append("]: ");
+                outputMessage.append(playerNames.get(key));
+                outputMessage.append(", points: ").append(stats.get(1));
+                outputMessage.append(", time: ").append(stats.get(2));
+                outputMessage.append(", score: ").append(stats.get(0));
+                outputMessage.append("\n");
+            }
+            JOptionPane.showMessageDialog(null, outputMessage.toString(),
+                    "Game Results", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

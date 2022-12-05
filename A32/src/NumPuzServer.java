@@ -14,6 +14,7 @@ public class NumPuzServer {
     NumPuzServerGui gui;
     String clientName;
     HashMap<Integer, ArrayList<Integer>> playerStats = new HashMap<>();
+    HashMap<Integer, String> playerNames = new HashMap<>();
     int nextClientId = 1;
 
     public NumPuzServer(int port, NumPuzServerGui gui) throws IOException {
@@ -38,6 +39,7 @@ public class NumPuzServer {
                 newStats.add(0);
                 newStats.add(0);
                 playerStats.put(nextClientId, newStats);
+                playerNames.put(nextClientId, clientName);
                 // Send the ID to the client
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                 out.println("id:" + nextClientId);
@@ -72,11 +74,17 @@ public class NumPuzServer {
                     } else if (message.startsWith("data:")) {
                         String data = message.split(":")[1];
                         String[] dataSplit = data.split(",");
-                        String moves = dataSplit[0];
-                        String score = dataSplit[1];
-                        String time = dataSplit[2];
+                        int clientId = Integer.parseInt(dataSplit[0]);
+                        int moves = Integer.parseInt(dataSplit[1]);
+                        int score = Integer.parseInt(dataSplit[2]);
+                        int time = Integer.parseInt(dataSplit[3]);
+
+                        playerStats.get(clientId).set(0, moves);
+                        playerStats.get(clientId).set(1, score);
+                        playerStats.get(clientId).set(2, time);
                         String output =
-                        "Got data from client " + clientName + ": " + moves + " moves, " + score + " score\n";
+                        "Got data from client " + playerNames.get(clientId) + ": " + moves + " moves, "
+                                + score + " score, " + time + " time\n";
                         gui.getLogTextArea().append(output);
                     }
                 }
@@ -90,5 +98,13 @@ public class NumPuzServer {
             return client;
         }
         return null;
+    }
+
+    public HashMap<Integer, ArrayList<Integer>> getPlayerStats() {
+        return playerStats;
+    }
+
+    public HashMap<Integer, String> getPlayerNames() {
+        return playerNames;
     }
 }
