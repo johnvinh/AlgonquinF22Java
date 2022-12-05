@@ -116,8 +116,8 @@ public class GameView extends JFrame {
     /**
      * Constructor for the view
      */
-    public GameView() {
-        super("NumPuz");
+    public GameView(String title) {
+        super(title);
     }
 
     /**

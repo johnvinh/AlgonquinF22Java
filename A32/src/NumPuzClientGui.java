@@ -189,8 +189,14 @@ public class NumPuzClientGui extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (solution == null) {
+                JOptionPane.showMessageDialog(null,
+                        "Missing configuration. Create one or receive one from the server",
+                        "Missing Configuration", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             GameModel gameModel = new GameModel();
-            GameView gameView = new GameView();
+            GameView gameView = new GameView(user.getText() + "'s NumPuz Game");
             controller = new GameController(gameModel, gameView, solution);
         }
     }
