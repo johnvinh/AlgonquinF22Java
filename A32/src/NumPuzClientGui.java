@@ -170,6 +170,15 @@ public class NumPuzClientGui extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            Thread thread = new Thread(new ReceiveGameData());
+            thread.start();
+        }
+    }
+
+    private class ReceiveGameData implements Runnable {
+
+        @Override
+        public void run() {
             try {
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                 out.println("requestConfig");
