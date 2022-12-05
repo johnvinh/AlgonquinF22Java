@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class NumPuzClientGui extends JFrame {
     private final JLabel userLabel;
@@ -26,8 +27,18 @@ public class NumPuzClientGui extends JFrame {
 
     NumPuzClientGui() {
         super("Game Client");
+        // Resize the image: https://stackoverflow.com/a/18335435
+        ImageIcon logoImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("client.png")));
+        Image image = logoImage.getImage();
+        Image newImage = image.getScaledInstance(300, 150, Image.SCALE_SMOOTH);
+        Icon logo = new ImageIcon(newImage);
+        JLabel logoLabel = new JLabel(logo);
+
+        JPanel logoPanel = new JPanel();
+        logoPanel.add(logoLabel);
+
         setLayout(new BorderLayout());
-        setSize(800, 600);
+
         userLabel = new JLabel("User:");
         user = new JTextField(8);
         serverLabel = new JLabel("Server:");
@@ -41,7 +52,7 @@ public class NumPuzClientGui extends JFrame {
         receiveGameButton = new JButton("Receive game");
         sendDataButton = new JButton("Send data");
         playButton = new JButton("Play");
-        logArea = new JTextArea(20, 20);
+        logArea = new JTextArea(20, 40);
 
         JPanel topPanel = new JPanel();
         topPanel.add(userLabel);
@@ -68,9 +79,15 @@ public class NumPuzClientGui extends JFrame {
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(logArea);
 
-        add(topPanel, BorderLayout.NORTH);
-        add(middlePanel, BorderLayout.CENTER);
+        JPanel doubleMiddlePanel = new JPanel();
+        doubleMiddlePanel.setLayout(new BorderLayout());
+        doubleMiddlePanel.add(topPanel, BorderLayout.NORTH);
+        doubleMiddlePanel.add(middlePanel, BorderLayout.CENTER);
+
+        add(logoPanel, BorderLayout.NORTH);
+        add(doubleMiddlePanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        setSize(600, 600);
 
         setVisible(true);
 
