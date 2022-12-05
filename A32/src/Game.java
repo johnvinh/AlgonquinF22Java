@@ -15,9 +15,7 @@ public class Game {
      */
     public static void main(String[] args) {
         NumPuzClientGui clientGui = new NumPuzClientGui();
-        /*GameModel gameModel = new GameModel();
-        GameView gameView = new GameView();
-        GameController main = new GameController(gameModel, gameView);*/
+        NumPuzClientGui clientGui2 = new NumPuzClientGui();
         NumPuzServerGui serverGui = new NumPuzServerGui();
     }
 }
