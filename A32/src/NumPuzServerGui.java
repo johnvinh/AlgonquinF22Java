@@ -12,6 +12,7 @@ public class NumPuzServerGui extends JFrame {
     private final JLabel portLabel;
     private final JTextField portInput;
     private final JButton startButton;
+    private final JButton resultsButton;
     private final JButton endButton;
     private final JTextArea logTextArea;
     NumPuzServer server;
@@ -38,6 +39,8 @@ public class NumPuzServerGui extends JFrame {
         portLabel = new JLabel("Port:");
         portInput = new JTextField(8);
         startButton = new JButton("Start");
+        resultsButton = new JButton("Results");
+        resultsButton.setEnabled(false);
         endButton = new JButton("End");
         logTextArea = new JTextArea(20, 40);
 
@@ -45,6 +48,7 @@ public class NumPuzServerGui extends JFrame {
         middlePanel.add(portLabel);
         middlePanel.add(portInput);
         middlePanel.add(startButton);
+        middlePanel.add(resultsButton);
         middlePanel.add(endButton);
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(logTextArea);
@@ -54,6 +58,7 @@ public class NumPuzServerGui extends JFrame {
         setVisible(true);
 
         startButton.addActionListener(new StartButtonClick());
+        resultsButton.addActionListener(new ResultsButtonClick());
 
         serverGui = this;
     }
@@ -92,7 +97,16 @@ public class NumPuzServerGui extends JFrame {
                 return;
             }
 
+            resultsButton.setEnabled(true);
             logTextArea.append("Successfully started server!\n");
+        }
+    }
+
+    private class ResultsButtonClick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
     }
 }
