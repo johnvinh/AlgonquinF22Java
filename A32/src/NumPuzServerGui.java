@@ -10,17 +10,50 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * A NumPuz server GUI.
+ */
 public class NumPuzServerGui extends JFrame {
+    /**
+     * A label for the port text field.
+     */
     private final JLabel portLabel;
+    /**
+     * The port to listen on.
+     */
     private final JTextField portInput;
+    /**
+     * Starts the server when clicked.
+     */
     private final JButton startButton;
+    /**
+     * Shows the results of the game when clicked.
+     */
     private final JButton resultsButton;
+    /**
+     * Ends the server when clicked.
+     */
     private final JButton endButton;
+    /**
+     * Logs server connection info.
+     */
     private final JTextArea logTextArea;
+    /**
+     * An instance of the server.
+     */
     NumPuzServer server;
+    /**
+     * The current instance of this class to be used in the start server button.
+     */
     NumPuzServerGui serverGui;
+    /**
+     * A solution to the current game configuration.
+     */
     private String configuration;
 
+    /**
+     * Creates a new server GUI.
+     */
     NumPuzServerGui() {
         super("Game Server");
         // Main image
@@ -65,18 +98,33 @@ public class NumPuzServerGui extends JFrame {
         serverGui = this;
     }
 
+    /**
+     * Gets the log text area.
+     * @return  the log text area of this GUI
+     */
     public JTextArea getLogTextArea() {
         return logTextArea;
     }
 
+    /**
+     * Sets the configuration.
+     * @param configuration the game configuration
+     */
     public void setConfiguration(String configuration) {
         this.configuration = configuration;
     }
 
+    /**
+     * Gets the game configuration.
+     * @return  the game configuration
+     */
     public String getConfiguration() {
         return configuration;
     }
 
+    /**
+     * Starts the game.
+     */
     private class StartButtonClick implements ActionListener {
 
         @Override
@@ -104,6 +152,9 @@ public class NumPuzServerGui extends JFrame {
         }
     }
 
+    /**
+     * Shows the game results of each client.
+     */
     private class ResultsButtonClick implements ActionListener {
 
         @Override
