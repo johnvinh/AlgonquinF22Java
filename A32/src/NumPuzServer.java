@@ -1,7 +1,10 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class NumPuzServer {
     ServerSocket socket;
@@ -10,6 +13,8 @@ public class NumPuzServer {
     Thread listenForMessageThread;
     NumPuzServerGui gui;
     String clientName;
+    HashMap<Integer, ArrayList<Integer>> playerStats = new HashMap<>();
+    int nextClientId = 1;
 
     public NumPuzServer(int port, NumPuzServerGui gui) throws IOException {
         socket = new ServerSocket(port);
@@ -26,7 +31,18 @@ public class NumPuzServer {
                 client = socket.accept();
                 BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 clientName = in.readLine();
-                gui.getLogTextArea().append("New connected user: " + clientName + "\n");
+                gui.getLogTextArea().append("New connected user: " + clientName + ", ID: " + nextClientId + "\n");
+                // Moves, score, time
+                ArrayList<Integer> newStats = new ArrayList<>();
+                newStats.add(0);
+                newStats.add(0);
+                newStats.add(0);
+                playerStats.put(nextClientId, newStats);
+                // Send the ID to the client
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                out.println("id:" + nextClientId);
+                gui.getLogTextArea().append("Sent client ID to " + clientName + "\n");
+                nextClientId++;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -58,6 +74,7 @@ public class NumPuzServer {
                         String[] dataSplit = data.split(",");
                         String moves = dataSplit[0];
                         String score = dataSplit[1];
+                        String time = dataSplit[2];
                         String output =
                         "Got data from client " + clientName + ": " + moves + " moves, " + score + " score\n";
                         gui.getLogTextArea().append(output);

@@ -24,6 +24,7 @@ public class NumPuzClientGui extends JFrame {
     private Socket client;
     private String solution;
     private GameController controller;
+    int clientId;
 
     NumPuzClientGui() {
         super("Game Client");
@@ -136,6 +137,9 @@ public class NumPuzClientGui extends JFrame {
             receiveGameButton.setEnabled(true);
             playButton.setEnabled(true);
             sendDataButton.setEnabled(true);
+
+            Thread thread = new Thread(new GetClientId());
+            thread.start();
         }
     }
 
@@ -203,14 +207,33 @@ public class NumPuzClientGui extends JFrame {
             GameModel model = controller.getModel();
             int moves = model.getMoves();
             int score = model.getScore();
+            int time = model.getTimeElapsed();
 
             try {
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                out.println("data:" + moves + "," + score);
+                out.println("data:" + moves + "," + score + "," + time);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            logArea.append(String.format("Sent game data to server: %d moves, %d points\n", moves, score));
+            logArea.append(String.format("Sent game data to server: %d moves, %d score, %d time\n", moves, score, time));
+        }
+    }
+
+    private class GetClientId implements Runnable {
+
+        @Override
+        public void run() {
+            System.out.println("Started listening for a message");
+            try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                String message = in.readLine();
+                if (message.startsWith("id:")) {
+                    clientId = Integer.parseInt(message.split(":")[1]);
+                    logArea.append("Received client ID from server: " + clientId + "\n");
+                }
+            } catch (IOException error) {
+                throw new RuntimeException(error);
+            }
         }
     }
 }
