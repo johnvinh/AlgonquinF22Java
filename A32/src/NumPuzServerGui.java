@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Objects;
 
 public class NumPuzServerGui extends JFrame {
     private final JLabel portLabel;
@@ -19,15 +20,26 @@ public class NumPuzServerGui extends JFrame {
 
     NumPuzServerGui() {
         super("Game Server");
+        // Main image
+        // Resize the image: https://stackoverflow.com/a/18335435
+        ImageIcon logoImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("server.png")));
+        Image image = logoImage.getImage();
+        Image newImage = image.getScaledInstance(300, 150, Image.SCALE_SMOOTH);
+        Icon logo = new ImageIcon(newImage);
+        JLabel logoLabel = new JLabel(logo);
+
+        JPanel topPanel = new JPanel();
+        topPanel.add(logoLabel);
         BorderLayout layout = new BorderLayout();
         setLayout(layout);
+        add(topPanel, BorderLayout.NORTH);
         setSize(800, 600);
 
         portLabel = new JLabel("Port:");
         portInput = new JTextField(8);
         startButton = new JButton("Start");
         endButton = new JButton("End");
-        logTextArea = new JTextArea(40, 40);
+        logTextArea = new JTextArea(20, 40);
 
         JPanel middlePanel = new JPanel();
         middlePanel.add(portLabel);
@@ -37,8 +49,8 @@ public class NumPuzServerGui extends JFrame {
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(logTextArea);
 
-        add(middlePanel, BorderLayout.NORTH);
-        add(bottomPanel, BorderLayout.CENTER);
+        add(middlePanel, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
         setVisible(true);
 
         startButton.addActionListener(new StartButtonClick());
