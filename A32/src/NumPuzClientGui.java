@@ -6,26 +6,86 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Objects;
 
+/**
+ * A GUI for a NumPuz client.
+ */
 public class NumPuzClientGui extends JFrame {
+    /**
+     * A label for the user text field.
+     */
     private final JLabel userLabel;
+    /**
+     * A text field for entering the player's name.
+     */
     private final JTextField user;
+    /**
+     * A label for the server text field.
+     */
     private final JLabel serverLabel;
+    /**
+     * A text field for entering the server IP.
+     */
     private final JTextField server;
+    /**
+     * A label for the port text field.
+     */
     private final JLabel portLabel;
+    /**
+     * A text field for entering the server port.
+     */
     private final JTextField port;
+    /**
+     * Connects to the server when clicked.
+     */
     private final JButton connectButton;
+    /**
+     * Ends the connection when clicked.
+     */
     private final JButton endButton;
+    /**
+     * Creates a new game configuration when clicked.
+     */
     private final JButton newGameButton;
+    /**
+     * Sends the game configuration to the server when clicked.
+     */
     private final JButton sendGameButton;
+    /**
+     * Receives a game configuration from the server when clicked.
+     */
     private final JButton receiveGameButton;
+    /**
+     * Sends the score, time, and moves to the server when clicked.
+     */
     private final JButton sendDataButton;
+    /**
+     * Starts playing the game when clicked.
+     */
     private final JButton playButton;
+    /**
+     * Logs server connection information.
+     */
     private final JTextArea logArea;
+    /**
+     * A socket for a connection to the server.
+     */
     private Socket client;
+    /**
+     * A string representing the solution to the game.
+     */
     private String solution;
+    /**
+     * The controller of the game GUI.
+     */
     private GameController controller;
+    /**
+     * The ID of this client.
+     */
     int clientId;
 
+    /**
+     * Creates a new client GUI.
+     */
     NumPuzClientGui() {
         super("Game Client");
         // Resize the image: https://stackoverflow.com/a/18335435
@@ -100,6 +160,9 @@ public class NumPuzClientGui extends JFrame {
         sendDataButton.addActionListener(new SendDataButtonClick());
     }
 
+    /**
+     * Listener for connecting to the server.
+     */
     private class ConnectButtonClick implements ActionListener {
 
         @Override
@@ -143,6 +206,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Listener which creates a new game configuration.
+     */
     private class NewGameButtonClick implements ActionListener {
 
         @Override
@@ -152,6 +218,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Sends the game data to the server.
+     */
     private class SendGameButtonClick implements ActionListener {
 
         @Override
@@ -166,6 +235,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Starts to receive the game configuration from the server.
+     */
     private class ReceiveGameButtonClick implements ActionListener {
 
         @Override
@@ -175,6 +247,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Runnable for receiving the game configuration from the server.
+     */
     private class ReceiveGameData implements Runnable {
 
         @Override
@@ -194,6 +269,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Opens up the game GUI.
+     */
     private class PlayButtonClick implements ActionListener {
 
         @Override
@@ -210,6 +288,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Sends the game stats to the server.
+     */
     private class SendDataButtonClick implements ActionListener {
 
         @Override
@@ -234,6 +315,9 @@ public class NumPuzClientGui extends JFrame {
         }
     }
 
+    /**
+     * Get the ID of this client from the server.
+     */
     private class GetClientId implements Runnable {
 
         @Override
