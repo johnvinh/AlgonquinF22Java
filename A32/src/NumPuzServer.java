@@ -6,17 +6,55 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * A NumPuz server.
+ */
 public class NumPuzServer {
+    /**
+     * The socket of this server.
+     */
     ServerSocket socket;
+    /**
+     * The socket of the latest connected client.
+     */
     Socket client;
+    /**
+     * A thread which listens for new connections.
+     */
     Thread newClientThread;
+    /**
+     * The GUI of this server.
+     */
     NumPuzServerGui gui;
+    /**
+     * The name of the latest connected client.
+     */
     String clientName;
+    /**
+     * The stats of all players.
+     */
     HashMap<Integer, ArrayList<Integer>> playerStats = new HashMap<>();
+    /**
+     * The names of all players.
+     */
     HashMap<Integer, String> playerNames = new HashMap<>();
+    /**
+     * The ID which should be assigned to the next
+     * player to connect.
+     */
     int nextClientId = 1;
+    /**
+     * A HashMap of every client's socket with their
+     * ID as the key.
+     */
     HashMap<Integer, Socket> clientSockets = new HashMap<>();
 
+    /**
+     * Creates a new server instance.
+     * @param port  the port to listen on
+     * @param gui   a GUI which the server will grab data from
+     * @throws IOException
+     */
     public NumPuzServer(int port, NumPuzServerGui gui) throws IOException {
         socket = new ServerSocket(port);
         newClientThread = new Thread(new AcceptClient());
@@ -25,6 +63,9 @@ public class NumPuzServer {
         newClientThread.start();
     }
 
+    /**
+     * A runnable for listening for the connection of a new client.
+     */
     private class AcceptClient implements Runnable {
 
         @Override
@@ -110,17 +151,19 @@ public class NumPuzServer {
             }
         }
     }
-    public Socket getClient() {
-        if (client != null) {
-            return client;
-        }
-        return null;
-    }
 
+    /**
+     * Gets the player stats.
+     * @return  the player stats
+     */
     public HashMap<Integer, ArrayList<Integer>> getPlayerStats() {
         return playerStats;
     }
 
+    /**
+     * Gets the player names.
+     * @return  the player names
+     */
     public HashMap<Integer, String> getPlayerNames() {
         return playerNames;
     }
