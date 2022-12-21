@@ -129,7 +129,6 @@ public class GameView extends JFrame {
      * @return  the game board
      */
     public JButton[][] initializeView(int initialDim, ActionListener dimBoxListener, String solution, GameModel model) {
-        GameSplash splash = new GameSplash();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         layout = new BorderLayout();
         gridLayout = new GridLayout(initialDim, initialDim);
@@ -412,32 +411,6 @@ public class GameView extends JFrame {
         }
         model.setSolution(outSolution);
         return board;
-    }
-
-    /**
-     * Display a splash screen.
-     */
-    private class GameSplash extends JWindow {
-        public GameSplash() {
-            JPanel content = new JPanel(new BorderLayout());
-            content.setBackground(Color.BLACK);
-            int width = 800;
-            int height = 600;
-            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (screen.width - width) / 2;
-            int y = (screen.height - height) / 2;
-            setBounds(x, y, width, height);
-            JLabel label = new JLabel(new ImageIcon(getClass().getResource("game-splash.png")));
-            content.add(label, BorderLayout.CENTER);
-            setContentPane(content);
-            setVisible(true);
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            dispose();
-        }
     }
 
     /**
